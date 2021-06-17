@@ -55,7 +55,7 @@ export class EntityMeta {
       return `    "${f.pName}" : this.${f.pName} \n`;
     });
     const keysDef = keyProperties.map((f) => {
-      return `"${f.pName}": ${f.type}`;
+      return `"${f.pName}": ${f.type} | undefined`;
     });
 
     let str = "";
@@ -84,6 +84,10 @@ export class EntityMeta {
     return str;
   }
 
+  /**
+   * エンティティのプロパティに限定したデータを取得する
+   * @returns
+   */
   getTypeFitEntityFromAny() {
     const properties = this.fields.map((f) => {
       return `    entity.${f.pName} = value.${f.pName};\n`;
@@ -152,7 +156,7 @@ export class EntityMeta {
     entityString += `// ${this.lName}のDAO\n`;
     entityString += `import { BaseDao } from "../../../framework/dao/BaseDao";\n`;
     entityString += `import { ResultSetHeader } from 'mysql2';\n`;
-    entityString += `import { ${this.pClassName} } from '../../entity/generated/${this.pClassName}';\n`;
+    entityString += `import { ${this.pClassName} } from '../../dto/generated/${this.pClassName}';\n`;
 
     entityString += `export class ${this.daoClassName} extends BaseDao {\n`;
     entityString += `  public readonly TABLE_NAME = "${this.pName}";\n\n`;

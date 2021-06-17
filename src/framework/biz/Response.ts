@@ -10,6 +10,7 @@ export class Response<T> implements MaybeError {
   toPlainObject(): any {
     return JSON.parse(JSON.stringify(this));
   }
+
   constructor(data: T) {
     this.data = data;
   }

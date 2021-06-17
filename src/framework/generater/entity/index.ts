@@ -13,9 +13,8 @@ const a5erFile = config.a5erFile;
 // createSQLfile
 const createSqlFile = config.createSqlFile;
 
-const generateDirClient = config.generateDirClient;
-const generateDirServer = config.generateDirServer;
-const generateDaoServer = config.generateDaoServer;
+const generateDirServer = config.db.generate.entity;
+const generateDaoServer = config.db.generate.dao;
 
 // 自動生成フォルダをクリーン
 function generate(metas: EntityMeta[], generateDir: string) {

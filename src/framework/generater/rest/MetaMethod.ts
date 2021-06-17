@@ -4,7 +4,7 @@ import config from "../../../../generator.config";
 
 import { getGenericTypeArgType, isGenericType, trimQuate } from "./util";
 
-const IMPORT_PATH_REST = config.rest.service.import;
+const importPathFromRemote = config.rest.remote.import;
 const frameWorkBizDir = config.framework.biz.dir;
 
 /**
@@ -129,11 +129,11 @@ export class MetaMethod {
       let importSentence = "";
       const classDefType = findClassDef(p.typeWithoutArray);
       if (classDefType === "entity") {
-        importSentence = `import { ${p.typeWithoutArray} } from '${IMPORT_PATH_REST.entity}${p.typeWithoutArray}';`;
+        importSentence = `import { ${p.typeWithoutArray} } from '${importPathFromRemote.entity}${p.typeWithoutArray}';`;
       } else if (classDefType === "dto") {
-        importSentence = `import { ${p.typeWithoutArray} } from '${IMPORT_PATH_REST.dto}${p.typeWithoutArray}';`;
+        importSentence = `import { ${p.typeWithoutArray} } from '${importPathFromRemote.dto}${p.typeWithoutArray}';`;
       } else if (classDefType === "param") {
-        importSentence = `import { ${p.typeWithoutArray} } from '${IMPORT_PATH_REST.param}${p.typeWithoutArray}';`;
+        importSentence = `import { ${p.typeWithoutArray} } from '${importPathFromRemote.param}${p.typeWithoutArray}';`;
       } else {
         throw new Error(
           `${this.name}の引数${p.name}で、/entityまたは/entity/generated、/param以外のオブジェクトは指定できません。`
@@ -205,9 +205,11 @@ export class MetaMethod {
     // entity or entity/genaratedから探す
     const classDefType = findClassDef(typeArg);
     if (classDefType === "entity") {
-      return `import { ${typeArg} } from '${IMPORT_PATH_REST.entity}${typeArg}';`;
+      return `import { ${typeArg} } from '${importPathFromRemote.entity}${typeArg}';`;
     } else if (classDefType === "dto") {
-      return `import { ${typeArg} } from '${IMPORT_PATH_REST.dto}${typeArg}';`;
+      return `import { ${typeArg} } from '${importPathFromRemote.dto}${typeArg}';`;
+    } else if (classDefType === "param") {
+      return `import { ${typeArg} } from '${importPathFromRemote.param}${typeArg}';`;
     } else {
       throw new Error(
         `${this.name}の戻り値型引数${returnClass}で、/entityまたは/entity/generated以外のオブジェクトは指定できません。`

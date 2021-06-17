@@ -2,7 +2,7 @@
 // サンプルテーブルのDAO
 import { BaseDao } from "../../../framework/dao/BaseDao";
 import { ResultSetHeader } from 'mysql2';
-import { SampleTable } from '../../entity/generated/SampleTable';
+import { SampleTable } from '../../dto/generated/SampleTable';
 export class SampleTableDaoGen extends BaseDao {
   public readonly TABLE_NAME = "sample_table";
 

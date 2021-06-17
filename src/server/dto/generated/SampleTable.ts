@@ -7,17 +7,20 @@ export class SampleTable {
   public create_dt?: Date;
   // メモ DB型(MEDIUMTEXT)
   public memo?: string;
-  static fromDB(record: { [column: string]: any; [column: number]: any }): SampleTable {
+  static fromDB(record: {
+    [column: string]: any;
+    [column: number]: any;
+  }): SampleTable {
     const entity = new SampleTable();
-    entity.id = record['id'];
-    entity.create_dt = record['create_dt'];
-    entity.memo = record['memo'];
+    entity.id = record["id"];
+    entity.create_dt = record["create_dt"];
+    entity.memo = record["memo"];
     return entity;
   }
-  getPrimaryKeys(): { "id": number } {
+  getPrimaryKeys(): { id: number | undefined } {
     const entity = {
-    "id" : this.id 
-    }
+      id: this.id,
+    };
     return entity;
   }
   static getTypeFitEntity(value: any): SampleTable {

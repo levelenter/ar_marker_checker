@@ -1,9 +1,9 @@
 import fs from "fs";
 import config from "../../../../generator.config";
 
-const DTO_DIR_FILES_PATH = config.rest.remote.import.dto;
-const GEN_ENTITY_DIR_FILES_PATH = config.rest.remote.import.entity;
-const PARAMS_DIR_FILES_PATH = config.rest.remote.import.param;
+const DTO_DIR_FILES_PATH = config.rest.service.import.dto;
+const GEN_ENTITY_DIR_FILES_PATH = config.rest.service.import.entity;
+const PARAMS_DIR_FILES_PATH = config.rest.service.import.param;
 // 引数のインポートをしないプリミティブ型
 export const Primitive = [
   "string",
@@ -22,24 +22,27 @@ export const Primitive = [
 export function findClassDef(
   typeName: string
 ): "entity" | "dto" | "param" | null {
+  const tsf = `${typeName}.ts`;
+
   // エンティティとDTOのフォルダに含むファイル名リスト
   const ENTITY_DIR_FILES = fs.readdirSync(DTO_DIR_FILES_PATH);
-
-  const tsf = `${typeName}.ts`;
   const entitis = ENTITY_DIR_FILES.filter((v) => v === tsf);
   if (entitis.length > 0) {
     return "dto";
   }
+
   const GEN_ENTITY_DIR_FILES = fs.readdirSync(GEN_ENTITY_DIR_FILES_PATH);
   const genEntities = GEN_ENTITY_DIR_FILES.filter((v) => v === tsf);
   if (genEntities.length > 0) {
     return "entity";
   }
+
   const PARAMS_DIR_FILES = fs.readdirSync(PARAMS_DIR_FILES_PATH);
   const params = PARAMS_DIR_FILES.filter((v) => v === tsf);
   if (params.length > 0) {
     return "param";
   }
+
   return null;
 }
 

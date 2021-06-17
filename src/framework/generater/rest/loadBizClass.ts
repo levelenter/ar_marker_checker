@@ -48,74 +48,75 @@ export function loadBizClass(): MetaClass[] {
     const srcFile = node.getSourceFile();
 
     node.forEachChild((child) => {
-      if (ts.isClassDeclaration(child)) {
-        // メタクラスのインスタンスを生成
-        const metaClass: MetaClass = new MetaClass();
-        // クラス名を取得
-        if (!child.name) return;
-        metaClass.name = child.name.escapedText.toString();
-        console.log(metaClass.name);
-
-        child.members.forEach((member) => {
-          if (ts.isMethodDeclaration(member)) {
-            // メタメソッドのインスタンスを生成
-            const metaMethod = new MetaMethod();
-
-            const name = member.name;
-            if (!ts.isPropertyName(name)) return;
-            metaMethod.name = name.getText(srcFile);
-
-            // パラメータを取り出す
-            metaMethod.params = member.parameters.map((param) => {
-              if (!param.type) throw new Error("タイプが取れない");
-              const metaParam = new MetaParam();
-              metaParam.name = param.name.getText(srcFile);
-              metaParam.type = param.type.getText(srcFile);
-              return metaParam;
-            });
-
-            // 戻り値
-            if (!member.type) throw new Error("メソッドタイプが取れない");
-            metaMethod.returnType = member.type.getText(srcFile);
-
-            if (!member.decorators) throw new Error("デコレータが取れない");
-            member.decorators.forEach((dec) => {
-              // console.log('dec ex', dec.expression);
-              const l1 = ts.SyntaxKind[dec.expression.kind];
-              // console.log('l1', l1);
-              const decChildren = dec.expression.getChildren(srcFile);
-
-              if (decChildren[0].getText(srcFile) === "Rest") {
-                // console.log(
-                //   '2 kind ',
-                //   ts.SyntaxKind[decChildren[2].kind],
-                //   decChildren[2].getText(srcFile)
-                // );
-                const params = decChildren[2].getChildren(srcFile);
-                metaMethod.uri = params[0].getText(srcFile);
-                metaMethod.httpMethod = params[2].getText(srcFile);
-
-                // トークンを必要としない場合"false"
-                if (params[4]) {
-                  const requireToken = params[4].getText(srcFile);
-                  metaMethod.requireToken = requireToken;
-                }
-
-                metaMethod.isRestDecorated = true;
-              }
-            });
-
-            // メソッドを保存
-            metaClass.methods.push(metaMethod);
-          }
-        });
-
-        // クラス情報を保存
-        classList.push(metaClass);
-      } else {
+      if (!ts.isClassDeclaration(child)) {
         console.error(`${fileName}はクラスではありません`);
         return;
       }
+
+      // メタクラスのインスタンスを生成
+      const metaClass: MetaClass = new MetaClass();
+      // クラス名を取得
+      if (!child.name) return;
+      metaClass.name = child.name.escapedText.toString();
+      console.log(metaClass.name);
+
+      child.members.forEach((member) => {
+        if (ts.isMethodDeclaration(member)) {
+          // メタメソッドのインスタンスを生成
+          const metaMethod = new MetaMethod();
+
+          const name = member.name;
+          if (!ts.isPropertyName(name)) return;
+          metaMethod.name = name.getText(srcFile);
+
+          // パラメータを取り出す
+          metaMethod.params = member.parameters.map((param) => {
+            if (!param.type) throw new Error("タイプが取れない");
+            const metaParam = new MetaParam();
+            metaParam.name = param.name.getText(srcFile);
+            metaParam.type = param.type.getText(srcFile);
+            return metaParam;
+          });
+
+          // 戻り値
+          if (!member.type) throw new Error("メソッドタイプが取れない");
+          metaMethod.returnType = member.type.getText(srcFile);
+
+          if (!member.decorators) throw new Error("デコレータが取れない");
+
+          member.decorators.forEach((dec) => {
+            // console.log('dec ex', dec.expression);
+            const l1 = ts.SyntaxKind[dec.expression.kind];
+            // console.log('l1', l1);
+            const decChildren = dec.expression.getChildren(srcFile);
+
+            if (decChildren[0].getText(srcFile) === "Rest") {
+              // console.log(
+              //   '2 kind ',
+              //   ts.SyntaxKind[decChildren[2].kind],
+              //   decChildren[2].getText(srcFile)
+              // );
+              const params = decChildren[2].getChildren(srcFile);
+              metaMethod.uri = params[0].getText(srcFile);
+              metaMethod.httpMethod = params[2].getText(srcFile);
+
+              // トークンを必要としない場合"false"
+              if (params[4]) {
+                const requireToken = params[4].getText(srcFile);
+                metaMethod.requireToken = requireToken;
+              }
+
+              metaMethod.isRestDecorated = true;
+            }
+          });
+
+          // メソッドを保存
+          metaClass.methods.push(metaMethod);
+        }
+      });
+
+      // クラス情報を保存
+      classList.push(metaClass);
     });
   }
   return classList;
