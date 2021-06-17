@@ -5,7 +5,8 @@ import ts from "typescript";
 import { MetaClass } from "./MetaClass";
 import { MetaMethod } from "./MetaMethod";
 import { MetaParam } from "./MetaParam";
-import config from "../generator.config";
+import config from "../../../../generator.config";
+
 import { createIfNotExist } from "./util";
 
 const IF_PATH = config.rest.service.dir;

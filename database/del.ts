@@ -1,16 +1,16 @@
-import fs from 'fs';
-import path from 'path';
+import fs from "fs";
+import path from "path";
 
-let database = path.resolve('./database');
-let docker = path.resolve('./database/docker');
-let data = path.resolve('./database/docker/data');
-let logs = path.resolve('./database/docker/logs');
+const database = path.resolve("./database");
+const docker = path.resolve("./database/docker");
+const data = path.resolve("./database/docker/data");
+const logs = path.resolve("./database/docker/logs");
 
-let deleteFolderRecursive = function(folder_path: string) {
-  console.log('delete  to ', folder_path);
-  if (fs.existsSync(folder_path)) {
-    fs.readdirSync(folder_path).forEach(function(file, index) {
-      var curPath = folder_path + '/' + file;
+const deleteFolderRecursive = function(folderPath: string) {
+  console.log("delete  to ", folderPath);
+  if (fs.existsSync(folderPath)) {
+    fs.readdirSync(folderPath).forEach(function(file, index) {
+      const curPath = folderPath + "/" + file;
       if (fs.lstatSync(curPath).isDirectory()) {
         // recurse
         deleteFolderRecursive(curPath);
@@ -19,13 +19,13 @@ let deleteFolderRecursive = function(folder_path: string) {
         fs.unlinkSync(curPath);
       }
     });
-    fs.rmdirSync(folder_path);
+    fs.rmdirSync(folderPath);
   }
 };
 
-function rebuildFolder(folder_path: string) {
-  if (!fs.existsSync(folder_path)) {
-    let rebuild = path.resolve(folder_path);
+function rebuildFolder(folderPath: string) {
+  if (!fs.existsSync(folderPath)) {
+    const rebuild = path.resolve(folderPath);
     fs.mkdirSync(rebuild, 0o744);
   }
 }
@@ -44,4 +44,4 @@ rebuildFolder(docker);
 rebuildFolder(data);
 rebuildFolder(logs);
 
-console.log('done');
+console.log("done");

@@ -1,10 +1,11 @@
 import { MetaParam } from "./MetaParam";
 import { Primitive, findClassDef } from "./common";
-import config from "../generator.config";
+import config from "../../../../generator.config";
+
 import { getGenericTypeArgType, isGenericType, trimQuate } from "./util";
 
 const IMPORT_PATH_REST = config.rest.service.import;
-const RESPONSE_DIR_FROM_CLIENT_GEN = config.RESPONSE_DIR_FROM_CLIENT_GEN;
+const frameWorkBizDir = config.framework.biz.dir;
 
 /**
  * メソッドのメタ情報を蓄積する
@@ -170,7 +171,7 @@ export class MetaMethod {
     if (Primitive.includes(returnClass)) return "";
 
     // インポート文
-    const importString = `import { ${returnClass} } from '${RESPONSE_DIR_FROM_CLIENT_GEN}${returnClass}';`;
+    const importString = `import { ${returnClass} } from '${frameWorkBizDir}${returnClass}';`;
     console.log("not generic ", importString);
     return importString;
   }

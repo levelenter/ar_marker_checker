@@ -1,0 +1,86 @@
+﻿# A5:ER FORMAT:14
+# A5:ER ENCODING:UTF8
+# A5:ER Mk-1 Copyright (C)2007 m.matsubara
+# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+#  https://a5m2.mmatsubara.com
+
+[Manager]
+ProjectName=def_academy
+Author=dai.yamamoto
+MaxEntityRowShow=1000
+ReadOnlyRecommend=0
+Page=メイン
+PageInfo="メイン",6,"A1Landscape",$FFFFFF
+Domain=autokey=bigint(20) AUTO_INCREMENT
+DomainInfo="autokey","bigint(20) AUTO_INCREMENT","自動採番"
+Domain=autokeyFk=bigint(20)
+DomainInfo="autokeyFk","bigint(20)","外部キー(自動採番にたいする）"
+Domain=id=VARCHAR(32)
+DomainInfo="id","VARCHAR(32)","ユーザ一意キー"
+Domain=fk=VARCHAR(32)
+DomainInfo="fk","VARCHAR(32)","外部キー"
+Domain=flg=TINYINT(1)
+DomainInfo="flg","TINYINT(1)","MySQLのBOOLはTINYINT(1)だから"
+Domain=varchar1024=VARCHAR(1024)
+DomainInfo="varchar1024","VARCHAR(1024)",""
+Domain=varchar512=VARCHAR(512)
+DomainInfo="varchar512","VARCHAR(512)",""
+Domain=varchar256=VARCHAR(256)
+DomainInfo="varchar256","VARCHAR(256)",""
+Domain=varchar64=VARCHAR(64)
+DomainInfo="varchar64","VARCHAR(64)",""
+Domain=varchar20=varchar(20)
+DomainInfo="varchar20","varchar(20)",""
+LogicalView=1
+DecodeDomain=0
+ViewModePageIndividually=1
+ViewMode=6
+ViewFormat=0
+UseNondependenceDashLine=0
+FontName=Yu Gothic UI
+FontSize=11
+PaperSize=A4Landscape
+HeaderLeft=
+HeaderCenter=
+HeaderRight=
+FooterLeft=
+FooterCenter=
+FooterRight=
+ShowPageoutRelation=1
+RDBMSType=5
+RDBMSTypeName=MySQL
+GenerateDropTableStatement=1
+DropTableIfExists=1
+BackupRestoreTempTable=0
+ForceQuoteIdentifier=1
+FkOnDeleteOption=on delete cascade
+FkOnUpdateOption=on update cascade
+CommonField="挿入日時","sys_insert_dt","@DATETIME","NOT NULL",,"CURRENT_TIMESTAMP","",$FFFFFFFF
+CommonField="更新日時","sys_update_dt","@DATETIME",,," CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP","",$FFFFFFFF
+CommonField="削除日時","sys_delete_dt","@DATETIME",,,"","",$FFFFFFFF
+DefaultPkName=%0:s_PKC
+DefaultPkIndexName=%0:s_PKI
+DefaultIndexName=%0:s_IX%1:d
+DefaultFkName=%0:s_FK%1:d
+SqlSeparator=0
+UpperCaseKeyword=0
+ShowTag=1
+ShowCommonAttributes=0
+
+[Entity]
+PName=sample_table
+LName=サンプルテーブル
+Comment=
+TableOption=
+Page=メイン
+Left=450
+Top=350
+Field="ID","id","*autokey",,0,"","",$FFFFFFFF,""
+Field="作成日","create_dt","DATETIME",,,"","",$FFFFFFFF,""
+Field="メモ","memo","MEDIUMTEXT",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210617141126
+Position="メイン",450,350
+ZOrder=112

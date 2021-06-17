@@ -4,7 +4,7 @@ import { EntityMeta } from "./EntityMeta";
 import { rebuildFolder, deleteFolderRecursive } from "../cleanFolder";
 import { loadMetadataMain } from "./loadMetadataMain";
 import { insertCharsetStatement } from "./insertCharsetStatement";
-import config from "../generator.config";
+import config from "../../../../generator.config";
 import { exit } from "process";
 
 // A5SQLファイル
@@ -26,11 +26,8 @@ function generate(metas: EntityMeta[], generateDir: string) {
   // 自動生成開始
   metas.forEach((meta: EntityMeta) => {
     console.log(meta.lName, meta.pName);
-    // console.log(meta.toEntityDefString());
     const outFilePath = path.join(generateDirPath, meta.outFileName);
     fs.writeFileSync(outFilePath, meta.toEntityDefString());
-    // const outCCFilePath = path.join(generateDirPath, meta.outCCFileName);
-    // fs.writeFileSync(outCCFilePath, meta.toEntityDefStringWithCamelCaseProps());
   });
 }
 
@@ -68,10 +65,6 @@ function main() {
   }
   const metas = loadMetadataMain(a5erFile);
 
-  // console.log('-------------------------');
-  // console.log('- クライアントエンティティ生成 ');
-  // console.log('-------------------------');
-  // generate(metas, generateDirClient);
   console.log("-------------------------");
   console.log("- サーバーエンティティ生成");
   console.log("-------------------------");

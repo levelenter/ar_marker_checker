@@ -1,9 +1,9 @@
 import { MetaMethod } from "./MetaMethod";
 import { Primitive, findClassDef, distinctArray, flatArray } from "./common";
-import config from "../generator.config";
+import config from "../../../../generator.config";
 
 const IMPORT_PATH_REST = config.rest.service.import;
-const RESPONSE_DIR_FROM_CLIENT_GEN = config.RESPONSE_DIR_FROM_CLIENT_GEN;
+const frameWorkBizDir = config.framework.biz.dir;
 const SERVICE_DIR_FROM_ROUTER = config.rest.service.from.router.dir;
 
 /**
@@ -48,9 +48,7 @@ export class MetaClass {
 
     // レスポンスクラスをインポートする
     if (hasResponseType) {
-      result.push(
-        `import { Response } from '${RESPONSE_DIR_FROM_CLIENT_GEN}Response';`
-      );
+      result.push(`import { Response } from '${frameWorkBizDir}Response';`);
     }
     return distinctArray(result);
   }

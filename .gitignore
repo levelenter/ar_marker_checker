@@ -3,7 +3,7 @@ node_modules
 __dev
 /dist
 
-/database/docker
+/database/docker/
 /build/log
 
 /tests/e2e/videos/

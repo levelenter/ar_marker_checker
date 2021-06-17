@@ -6,11 +6,11 @@ import {
   ignoreTokenFileCreate,
 } from "./generateExpressRouter";
 import { checkDecorater } from "./checkDecorater";
-import config from "../generator.config";
+import config from "../../../../generator.config";
 
 const CLIENT_OUT_PATH = config.CLIENT_OUT_PATH;
-const GEN_REST_PATH = config.GEN_REST_PATH;
-const GEN_IGNORE_LIST_PATH = config.GEN_IGNORE_LIST_PATH;
+const expressRouteGeneratePath = config.rest.genarete.path;
+const ignoreTokenFilePath = config.rest.genarete.ignoreTokenFilePath;
 
 console.log("-------------------------");
 console.log("- ロード開始");
@@ -28,8 +28,8 @@ console.log("-------------------------");
 console.log("- サーバーサイド生成");
 console.log("-------------------------");
 // サーバーサイド生成
-generateRestAPI(classes, GEN_REST_PATH);
-ignoreTokenFileCreate(classes, GEN_IGNORE_LIST_PATH);
+generateRestAPI(classes, expressRouteGeneratePath);
+ignoreTokenFileCreate(classes, ignoreTokenFilePath);
 console.log("サーバーサイド生成 done");
 
 console.log("-------------------------");
