@@ -4,7 +4,7 @@ __dev
 /dist
 
 /database/docker/
-/build/log
+/build
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/

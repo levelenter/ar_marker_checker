@@ -1,11 +1,12 @@
 class MessageResource {
   // 基本的には、初期化済みプロパティでメッセージを作る。
   PAGE_NOT_FOUND = "404 page not found";
+  INVALID_TOKEN = "Invalid token.";
   SOMETHING_BROKEN =
-    "Something broke!このエラーは操作ミスではなくバグの可能性があります。";
+    "Something broken! このエラーは操作ミスではなくバグの可能性があります。";
   NO_JWT_TOKEN = "No JWT token provided. or unmatched path ";
   NO_DATA = "データがありませんでした。";
-  INVALID_TOKEN = "Invalid token.";
+
   // ログイン関連
   NOT_REGISTED_USER =
     "登録されていないユーザーです。アカウント登録してください";
@@ -13,8 +14,6 @@ class MessageResource {
     "登録されていないメールアドレスです。アカウント登録してください";
   NOT_MATCHED_PASS = "メールアドレスまたはパスワードが間違っています";
   NOT_MATCHED_TYPE = "ログインしようとしているログイン画面が違っています。";
-  NOT_REGISTED_INBUILDING_USER =
-    "ユーザーの登録校舎が異なります。サイレントボイス窓口までご連絡ください。";
 
   // 既に登録されている
   ALREADY_INSERTED = "すでに登録されています。";
@@ -22,9 +21,6 @@ class MessageResource {
   AUTH_SUCCESSFULLY_FINISHED = "ログインに成功しました。";
   DUPLICATE_EMAIL =
     "すでに登録済のメールアドレスです。ログインページへお進みください。";
-  DUPLICATE_LINE_USER =
-    "このLINEユーザーはすでに登録されています。ログインへお進みください。";
-  DUPLICATE_SCHEDULE = "この月の予定はすでに登録済みです。";
 
   // メール送信
   REQUIRE_TO_MAIL_ADDRESS = "宛先のメールアドレスが指定されていません";
@@ -46,8 +42,6 @@ class MessageResource {
   get REQUIRE_MAIL() {
     return this.REQUIRE_SOMETHING("メールアドレス");
   }
-
-  LINE_NOTIFY_SETTING_ERROR = "LINE通知設定で予期せぬエラーが発生しました";
   ////////
   // 関数
   ////////

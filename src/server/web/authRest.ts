@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import config from "config";
 import express from "express";
 import { ignoreTokenUriList } from "../../framework/web/ignoreTokenUriList";
-import messageResource from "../../../config/message.resource";
+import { messageResource } from "../../framework/util/MessageResource";
 
 /**
  * Express Routerはサブアプリケーションを作成する
@@ -18,6 +18,12 @@ export const authRest = express.Router();
  * /v1/user/list が v1/user/list になっているような時も、このメソッドが反応したりします。
  */
 authRest.use((req, res, next) => {
+  // /v?で始まっているパスのみJWTトークンをチェックする
+  if (!req.path.toLocaleLowerCase().match(/^\/v[0-9]/)) {
+    next();
+    return;
+  }
+
   // indexはトークン除外
   ignoreTokenUriList.push({
     uri: "/",

@@ -1,5 +1,5 @@
-import * as log4js from 'log4js';
-import config from 'config';
+import * as log4js from "log4js";
+import config from "config";
 
 // 設定ファイル（log-config.json）の読み込み
 // log4javascript.configure('../config/logger_config.json', { reloadSecs: 60 });
@@ -12,19 +12,19 @@ class Logger {
     log4js.configure({
       appenders: {
         filelog: {
-          type: 'file',
-          filename: config.get<string>('log.path'),
+          type: "file",
+          filename: config.get<string>("log.path"),
         },
       },
       categories: {
         default: {
-          appenders: ['filelog'],
-          level: config.get<string>('log.level'),
+          appenders: ["filelog"],
+          level: config.get<string>("log.level"),
         },
       },
     });
     this._logger = log4js.getLogger();
-    this._logger.level = 'debug';
+    this._logger.level = "debug";
   }
 
   public get logger() {

@@ -3,17 +3,18 @@ const path = require("path");
 
 module.exports = {
   configureWebpack: {
+    devtool: "source-map",
     resolve: {
       alias: {
-        "@": path.join(__dirname, "/src/frontend"),
+        "@": path.join(__dirname, "/src/frontend"), // 1. @の参照先の変更
       },
     },
   },
-  outputDir: "dist/public",
+  outputDir: "./build/build_client", // 2. 出力先
   pages: {
     index: {
-      entry: "src/frontend/main.ts",
-      template: "src/public/index.html",
+      entry: "src/frontend/main.ts", // エントリーポイント
+      template: "src/frontend/assets/index.html", //3. index.htmlテンプレート
     },
   },
 };

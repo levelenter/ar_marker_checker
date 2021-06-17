@@ -1,6 +1,6 @@
 import { ErrorType } from "./ErrorType";
 import { MaybeError } from "./MaybeError";
-import MSG from "../../../config/message.resource";
+import { messageResource } from "../util/MessageResource";
 /**
  * Responseステータスを含むエラー
  */
@@ -10,7 +10,9 @@ export class ErrorResult extends Error implements MaybeError {
   public description?: string;
   public errorExpandedData?: any;
   static getSystemError(obj: any, cause: string) {
-    return new ErrorResult(MSG.SOMETHING_BROKEN + `:${obj} ${cause}`);
+    return new ErrorResult(
+      messageResource.SOMETHING_BROKEN + `:${obj} ${cause}`
+    );
   }
   constructor(
     message: string,

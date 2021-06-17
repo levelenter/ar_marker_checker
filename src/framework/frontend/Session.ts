@@ -11,6 +11,12 @@ export class Session {
     location.reload();
   }
 
+  static get isAuthorized(): boolean {
+    const user = this.get<any>("USER");
+    if (!user) return false;
+    return user.user_id ? true : false;
+  }
+
   /**
    *
    * @param key SESSION_KEYSに限定
