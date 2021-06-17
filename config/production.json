@@ -1,0 +1,16 @@
+{
+  "server_port": 3002,
+  "secret": "le_framework_secret!!",
+  "db": {
+    "host": "localhost",
+    "port": 33306,
+    "database": "vr",
+    "user": "example",
+    "password": "example",
+    "maxcon": 100
+  },
+  "log": {
+    "path": "./build/log/app.log",
+    "level": "debug"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "docker-aframe",
+  "script": "./build/index.js",
+  "log_date_format": "YYYY-MM-DD HH:mm Z",
+  "env": {
+    "NODE_ENV": "production",
+    "name": "docker-aframe"
+  }
+}

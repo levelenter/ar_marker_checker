@@ -1,0 +1,7 @@
+SET SQL_MODE = '';
+
+SET CHARACTER_SET_CLIENT = utf8;
+
+SET CHARACTER_SET_CONNECTION = utf8;
+
+INSERT INTO example(comment) VALUE ('test'),('test2');

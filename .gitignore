@@ -1,10 +1,13 @@
 .DS_Store
 node_modules
+__dev
 /dist
+
+/database/docker
+/build/log
 
 /tests/e2e/videos/
 /tests/e2e/screenshots/
-
 
 # local env files
 .env.local

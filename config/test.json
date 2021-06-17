@@ -1,0 +1,17 @@
+{
+  "server_port": 3002,
+  "secret": "le_framework_secret!!",
+  "db": {
+    "//1": "dockerのインスタンス名でアクセス、ポートも内部のポート",
+    "host": "localhost",
+    "port": 33306,
+    "database": "vr",
+    "user": "example",
+    "password": "example",
+    "maxcon": 100
+  },
+  "log": {
+    "path": "./build/log/app.log",
+    "level": "debug"
+  }
+}
