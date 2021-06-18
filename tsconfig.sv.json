@@ -64,7 +64,7 @@
     "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */
   },
   "paths": {
-    "@/*": ["./src_server/*"]
+    "@/*": ["src/*"]
   },
   "include": [
     "./src/server/**/*.js",

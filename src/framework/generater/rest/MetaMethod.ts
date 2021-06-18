@@ -1,6 +1,6 @@
 import { MetaParam } from "./MetaParam";
 import { Primitive, findClassDef } from "./common";
-import config from "../../../../generator.config";
+import config from "../../../../config/generator.config";
 
 import { getGenericTypeArgType, isGenericType, trimQuate } from "./util";
 

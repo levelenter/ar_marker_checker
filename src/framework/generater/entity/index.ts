@@ -4,7 +4,7 @@ import { EntityMeta } from "./EntityMeta";
 import { rebuildFolder, deleteFolderRecursive } from "../cleanFolder";
 import { loadMetadataMain } from "./loadMetadataMain";
 import { insertCharsetStatement } from "./insertCharsetStatement";
-import config from "../../../../generator.config";
+import config from "../../../../config/generator.config";
 import { exit } from "process";
 
 // A5SQLファイル

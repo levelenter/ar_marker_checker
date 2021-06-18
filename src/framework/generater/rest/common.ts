@@ -1,5 +1,5 @@
 import fs from "fs";
-import config from "../../../../generator.config";
+import config from "../../../../config/generator.config";
 
 const DTO_DIR_FILES_PATH = config.rest.service.import.dto;
 const GEN_ENTITY_DIR_FILES_PATH = config.rest.service.import.entity;

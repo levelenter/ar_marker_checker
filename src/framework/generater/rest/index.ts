@@ -6,7 +6,7 @@ import {
   ignoreTokenFileCreate,
 } from "./generateExpressRouter";
 import { checkDecorater } from "./checkDecorater";
-import config from "../../../../generator.config";
+import config from "../../../../config/generator.config";
 
 const CLIENT_OUT_PATH = config.CLIENT_OUT_PATH;
 const expressRouteGeneratePath = config.rest.genarete.path;

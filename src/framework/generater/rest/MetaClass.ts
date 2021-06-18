@@ -1,6 +1,6 @@
 import { MetaMethod } from "./MetaMethod";
 import { distinctArray, flatArray } from "./common";
-import config from "../../../../generator.config";
+import config from "../../../../config/generator.config";
 
 const frameWorkBizDir = config.framework.biz.dir;
 const SERVICE_DIR_FROM_ROUTER = config.rest.service.from.router.dir;

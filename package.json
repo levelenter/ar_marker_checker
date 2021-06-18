@@ -22,33 +22,37 @@
     "db": "run-s entity db:down db:clean db:build db:up",
     "db:clean:network": "docker network prune -f",
     "db:clean:volume": "docker volume prune -f",
-    "db:clean:disk": "./node_modules/.bin/ts-node --project ./tsconfig.sv.json ./database/del.ts",
+    "db:clean:disk": "./node_modules/.bin/ts-node --project ./tsconfig.sv.json ./src/framework/command/deleteDockerDatabase.ts",
     "db:clean": "run-s db:clean:disk db:clean:volume db:clean:network",
     "db:down": "docker-compose down",
     "db:build": "docker-compose build --no-cache --force-rm db",
     "db:up": "docker-compose up db",
     "db:prod": "./build/database/init.sh",
+    "db:backup": "./node_modules/.bin/ts-node --project ./tsconfig.sv.json ./src/framework/command/mysqldump.ts",
     "entity": "./node_modules/.bin/ts-node --project ./tsconfig.sv.json ./src/framework/generater/entity/index.ts",
     "rest": "./node_modules/.bin/ts-node --project ./tsconfig.sv.json ./src/framework/generater/rest/index.ts",
-    "kill": "./src/framework/generater/command/kill.sh",
+    "kill": "ts-node ./src/framework/command/kill.ts",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@types/config": "0.0.38",
-    "async_hooks": "^1.0.0",
     "config": "^3.3.3",
     "core-js": "^3.6.5",
     "dayjs": "^1.10.5",
     "express": "^4.17.1",
+    "firebase": "^8.6.8",
+    "firebaseui": "^4.8.0",
     "jsonwebtoken": "^8.5.1",
     "log4js": "^6.3.0",
     "mysql2": "^2.2.5",
     "npm-run-all": "^4.1.5",
+    "prettier": "^1.19.1",
     "ts-node": "^9.0.0",
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0",
+    "vue-property-decorator": "^9.1.2",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {
@@ -70,6 +74,7 @@
     "connect-history-api-fallback": "^1.6.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0-0",
+    "mysqldump": "^3.2.0",
     "pm2": "^4.5.4",
     "typescript": "~3.9.3",
     "vue-jest": "^5.0.0-0"
@@ -79,16 +84,28 @@
     "env": {
       "node": true
     },
+    "plugins": [
+      "vue",
+      "@typescript-eslint"
+    ],
     "extends": [
-      "plugin:vue/vue3-essential",
+      "@vue/typescript",
       "eslint:recommended",
+      "plugin:vue/vue3-recommended",
       "@vue/typescript/recommended"
     ],
     "parserOptions": {
-      "ecmaVersion": 2020
+      "ecmaVersion": 12,
+      "parser": "@typescript-eslint/parser",
+      "sourceType": "module",
+      "warnOnUnsupportedTypeScriptVersion": false
     },
     "rules": {
-      "prefer-rest-params": "off"
+      "prefer-rest-params": "off",
+      "no-explicit-any": "off",
+      "code": 180,
+
+      "vue/html-self-closing" :"off"
     },
     "overrides": [
       {
@@ -102,6 +119,9 @@
         }
       }
     ]
+  },
+  "prettier": {
+    "printWidth": 180
   },
   "browserslist": [
     "> 1%",

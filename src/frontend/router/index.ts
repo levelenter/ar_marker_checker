@@ -6,12 +6,26 @@ import VueRouter, {
   RouteLocationNormalized,
 } from "vue-router";
 import Home from "../views/Home.vue";
+import Login from "../views/Login.vue";
+import TablePage from "../components/TablePage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     name: "Home",
     component: Home,
+    meta: { requireAuth: false },
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+    meta: { requireAuth: false },
+  },
+  {
+    path: "/table_page",
+    name: "TablePage",
+    component: TablePage,
     meta: { requireAuth: false },
   },
 ];

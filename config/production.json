@@ -4,7 +4,7 @@
   "db": {
     "host": "localhost",
     "port": 33306,
-    "database": "vr",
+    "database": "database1",
     "user": "example",
     "password": "example",
     "maxcon": 100
