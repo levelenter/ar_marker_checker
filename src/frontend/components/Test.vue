@@ -5,7 +5,9 @@
 
     propData:{{ prop.user }}<br />
     sum:{{ sum }}
-    <button @click="pushButton">count u p</button>
+    <button @click="pushButton">
+      count u p
+    </button>
   </div>
 </template>
 <script lang="ts">

@@ -30,14 +30,14 @@ services:
   #   depends_on:
   #     - db
   # Webサーバー（Vue.js cli server)
-  app:
-    image: node:14
-    container_name: app
-    ports:
-      - 8081:3002
-    volumes:
-      - .:/work
-    working_dir: /work
-    command: "npm run dev:web"
-    depends_on:
-      - rtc
+  # app:
+  #   image: node:14
+  #   container_name: app
+  #   ports:
+  #     - 8081:3002
+  #   volumes:
+  #     - .:/work
+  #   working_dir: /work
+  #   command: "npm run dev:web"
+  #   depends_on:
+  #     - rtc

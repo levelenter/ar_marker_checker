@@ -1,15 +1,18 @@
 <template>
   <div>
-    <Table :rows="rows" :columns="cols" />
+    <LeafTable
+      :rows="rows"
+      :columns="cols"
+    />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "@vue/runtime-core";
 import { TableColumn } from "../../framework/components/table/TableColumn";
-import Table from "../../framework/components/table/Table.vue";
+import LeafTable from "../../framework/components/table/LeafTable.vue";
 
 export default defineComponent({
-  components: { Table },
+  components: { LeafTable },
   setup() {
     const rows: { id: number; name: string; price: number; create: Date }[] = [];
     for (let i = 1; i <= 20; i++) {

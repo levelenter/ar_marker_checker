@@ -16,8 +16,9 @@
     "paths": {
       "@/*": ["src/frontend/*"]
     },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"],
+    "typeRoots": ["node_modules/@types", "src/framework/@types", "src/frontend/@types"]
   },
-  "include": ["src/frontend/**/*.ts", "src/frontend/**/*.tsx", "src/frontend/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
+  "include": ["src/frontend/**/*.ts", "src/frontend/**/*.tsx", "src/frontend/**/*.vue", "src/stories/**/.ts", "tests/**/*.ts", "tests/**/*.tsx"],
   "exclude": ["node_modules"]
 }
