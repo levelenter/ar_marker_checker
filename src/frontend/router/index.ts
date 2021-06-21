@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import { Session } from "../../framework/frontend/Session";
 import { createRouter, createWebHistory, RouteRecordRaw, RouteLocationNormalized } from "vue-router";
+=======
+import { Session } from "../../framework/client/Session";
+import VueRouter, { createRouter, createWebHistory, RouteRecordRaw, RouteLocationNormalized } from "vue-router";
+>>>>>>> 0498829adb75e31f88be27643df5d4842960e706
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import TablePage from "../components/TablePage.vue";
