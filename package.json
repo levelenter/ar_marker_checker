@@ -86,6 +86,7 @@
     "eslint-plugin-vue": "^7.0.0-0",
     "mysqldump": "^3.2.0",
     "pm2": "^4.5.4",
+    "ts-loader": "^6.2.2",
     "typescript": "~3.9.3",
     "vue-jest": "^5.0.0-0",
     "vue-loader": "^16.2.0"

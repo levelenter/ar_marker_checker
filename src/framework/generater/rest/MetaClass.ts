@@ -23,7 +23,7 @@ export class MetaClass {
    * @Restメソッドを持っているクラスかどうかを返す
    */
   public get hasRestMetod() {
-    return this.methods.some((method) => method.isRestDecorated);
+    return this.methods.some(method => method.isRestDecorated);
   }
 
   /**
@@ -32,18 +32,13 @@ export class MetaClass {
    */
   private getImportResponseClass() {
     // Responseクラスを戻り値に持っているかどうか
-    const hasResponseType = this.methods.reduce(
-      (a, c: MetaMethod) => a || c.hasResponseType,
-      false
-    );
+    const hasResponseType = this.methods.reduce((a, c: MetaMethod) => a || c.hasResponseType, false);
 
     // メソッドのインポート文字列を取得
-    const result = this.methods.map((m) => m.importString);
+    const result = this.methods.map(m => m.importString);
 
     // ベースクラスをインポートする
-    result.push(
-      `import { GeneratedBizBase } from '../../../framework/frontend/GeneratedBizBase';`
-    );
+    result.push(`import { GeneratedBizBase } from '../../../framework/client/GeneratedBizBase';`);
 
     // レスポンスクラスをインポートする
     if (hasResponseType) {
@@ -59,15 +54,13 @@ export class MetaClass {
     if (!this.hasRestMetod) return "";
 
     // 戻り値と引数の型をインポート（重複を削除）
-    const impotsAll = distinctArray(
-      this.getImportResponseClass().concat(this.paramDefImportStringArray)
-    ).filter((i) => i);
+    const impotsAll = distinctArray(this.getImportResponseClass().concat(this.paramDefImportStringArray)).filter(i => i);
     console.log(impotsAll);
 
     let str = "";
     str += impotsAll.join("\n\n\n");
     str += `export class ${this.name} extends GeneratedBizBase{\n`;
-    str += this.methods.map((m) => m.toClientDefString()).join("");
+    str += this.methods.map(m => m.toClientDefString()).join("");
     str += `}\n`;
     return str;
   }
@@ -76,9 +69,7 @@ export class MetaClass {
    * サーバーサイドRestのソースコードを返す
    */
   public toRestString(): string {
-    const str = this.methods
-      .map((m) => m.toExpressRoutingString(this.name))
-      .join("");
+    const str = this.methods.map(m => m.toExpressRoutingString(this.name)).join("");
     return str;
   }
 
@@ -94,9 +85,7 @@ export class MetaClass {
    * 各メソッドの引数の型をインポートする文字列配列（サーバーサイドRESTで使用）
    */
   public get paramDefImportStringArray() {
-    return flatArray<string>(
-      this.methods.map((m) => m.paramDefImportStringArray)
-    );
+    return flatArray<string>(this.methods.map(m => m.paramDefImportStringArray));
   }
 
   /**
@@ -112,7 +101,7 @@ export class MetaClass {
   public hasErrorInDecorator(): boolean {
     if (!this.hasRestMetod) return false;
     const hasErrors = this.methods
-      .map((m) => !m.checkRestDecoretor(this.name))
+      .map(m => !m.checkRestDecoretor(this.name))
       .some(() => {
         console.log("");
       });

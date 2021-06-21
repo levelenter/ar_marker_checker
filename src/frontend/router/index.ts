@@ -1,4 +1,4 @@
-import { Session } from "../../framework/frontend/Session";
+import { Session } from "../../framework/client/Session";
 import VueRouter, { createRouter, createWebHistory, RouteRecordRaw, RouteLocationNormalized } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
