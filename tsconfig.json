@@ -18,12 +18,6 @@
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "include": [
-    "src/frontend/**/*.ts",
-    "src/frontend/**/*.tsx",
-    "src/frontend/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
-  ],
+  "include": ["src/frontend/**/*.ts", "src/frontend/**/*.tsx", "src/frontend/**/*.vue", "tests/**/*.ts", "tests/**/*.tsx"],
   "exclude": ["node_modules"]
 }

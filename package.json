@@ -103,9 +103,7 @@
     "rules": {
       "prefer-rest-params": "off",
       "no-explicit-any": "off",
-      "code": 180,
-
-      "vue/html-self-closing" :"off"
+      "vue/html-self-closing": "off"
     },
     "overrides": [
       {
