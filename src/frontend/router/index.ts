@@ -1,5 +1,5 @@
 import { Session } from "../../framework/frontend/Session";
-import VueRouter, { createRouter, createWebHistory, RouteRecordRaw, RouteLocationNormalized } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw, RouteLocationNormalized } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import TablePage from "../components/TablePage.vue";

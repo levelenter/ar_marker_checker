@@ -48,6 +48,7 @@
     "express": "^4.17.1",
     "firebase": "^8.6.8",
     "firebaseui": "^4.8.0",
+    "firebaseui-ja": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "log4js": "^6.3.0",
     "mysql2": "^2.2.5",
