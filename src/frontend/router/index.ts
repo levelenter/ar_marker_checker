@@ -1,10 +1,5 @@
 import { Session } from "../../framework/frontend/Session";
-import VueRouter, {
-  createRouter,
-  createWebHistory,
-  RouteRecordRaw,
-  RouteLocationNormalized,
-} from "vue-router";
+import VueRouter, { createRouter, createWebHistory, RouteRecordRaw, RouteLocationNormalized } from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import TablePage from "../components/TablePage.vue";
@@ -14,25 +9,25 @@ const routes: Array<RouteRecordRaw> = [
     path: "/",
     name: "Home",
     component: Home,
-    meta: { requireAuth: false },
+    meta: { requireAuth: false }
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
-    meta: { requireAuth: false },
+    meta: { requireAuth: false }
   },
   {
     path: "/table_page",
     name: "TablePage",
     component: TablePage,
-    meta: { requireAuth: false },
-  },
+    meta: { requireAuth: false }
+  }
 ];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes,
+  routes
 });
 
 /**
@@ -55,7 +50,7 @@ router.beforeEach((to: RouteLocationNormalized, from, next) => {
   // 認証されていなければログイン画面出す
   if (to.meta.requireAuth && !Session.isAuthorized) {
     // どのログイン画面に返すかを判定
-    const path = getLoginPagePath(to.meta.type, to);
+    const path = getLoginPagePath(to.meta.type as string, to);
 
     next({ path: path, query: { redirect: to.fullPath } });
   }

@@ -1,13 +1,11 @@
 .DS_Store
 node_modules
-__dev
 /dist
-/database/docker/
-/build
-/database/backup/*.sql
-
+storybook-static
+/database/docker
 /tests/e2e/videos/
 /tests/e2e/screenshots/
+/build
 
 # local env files
 .env.local

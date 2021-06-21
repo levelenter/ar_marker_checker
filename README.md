@@ -63,3 +63,11 @@ scp root@brockvrocks.com:backup/database1_bk_0101.sql  /Users/dai/projects/le-se
 ```
 curl -X GET -H "Content-Type: application/json" localhost:3002/v1/TestService/getByNote
 ```
+
+### story book
+
+```
+npx -p @storybook/cli sb init --type vue
+```
+
+参考 https://dnrsm.dev/blog/2020/storybook-vue-setup

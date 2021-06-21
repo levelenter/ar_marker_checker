@@ -4,11 +4,7 @@
     "incremental": false /* Enable incremental compilation */,
     "target": "es2019" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019' or 'ESNEXT'. */,
     "module": "commonjs" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */,
-    "lib": [
-      "es2019",
-      "dom",
-      "dom.iterable"
-    ] /* Specify library files to be included in the compilation. */,
+    "lib": ["es2019", "dom", "dom.iterable"] /* Specify library files to be included in the compilation. */,
     "allowJs": true /* Allow javascript files to be compiled. */,
     "resolveJsonModule": true,
     // "checkJs": true,                       /* Report errors in .js files. */
@@ -61,16 +57,12 @@
 
     /* Experimental Options */
     "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
-    "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */
+    "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */,
+    "typeRoots": ["node_modules/@types", "src/server/@types"]
   },
   "paths": {
     "@/*": ["src/*"]
   },
-  "include": [
-    "./src/server/**/*.js",
-    "./src/server/**/*.ts",
-    "./src/server/**/**/*.ts",
-    "./src/server/*.ts"
-  ],
+  "include": ["./src/server/**/*.js", "./src/server/**/*.ts", "./src/server/**/**/*.ts", "./src/server/*.ts"],
   "exclude": ["node_modules"]
 }
