@@ -1,4 +1,6 @@
 import { MessageDialog } from "./MessageDialog";
+import jwt from "jsonwebtoken";
+
 type SESSION_KEYS = "USER";
 
 export class Session {
@@ -12,9 +14,9 @@ export class Session {
   }
 
   static get isAuthorized(): boolean {
-    const user = this.get<any>("USER");
+    const user = this.get<string>("USER");
     if (!user) return false;
-    return user.user_id ? true : false;
+    return true;
   }
 
   /**
@@ -50,17 +52,20 @@ export class Session {
       return null;
     }
   }
+
   static getSessionUser() {
+    const token = Session.getSessionToken();
+    const user = jwt.decode(token);
+    return user;
+  }
+
+  static getSessionToken() {
     const user = Session.get<any>("USER");
     if (!user) return {};
     return user;
   }
 
   static getJwtToken(): string {
-    const user = this.getSessionUser();
-    if (!user) {
-      return "";
-    }
-    return user.token;
+    return this.getSessionToken();
   }
 }

@@ -6,6 +6,6 @@ export class SampleTableDao extends SampleTableDaoGen {
   async selectByNote(sentence: string): Promise<SampleTable[]> {
     const sql = `select * from ${this.TABLE_NAME} where memo like ?`;
     const param = [`%${sentence}%`];
-    return this.db.query(this.con, sql, param);
+    return this.db.query(sql, param);
   }
 }

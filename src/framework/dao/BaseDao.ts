@@ -6,8 +6,8 @@ export class BaseDao {
   con: PoolConnection;
 
   constructor(con: PoolConnection) {
-    this.db = new DBAccessor();
     this.con = con;
+    this.db = new DBAccessor(con);
   }
 
   commit(): void {
@@ -140,11 +140,7 @@ export class BaseDao {
    * @param {*} valuesJson key 以外の項目JSON
    * @param {*} keyJson "{ user_id: 1 , project_id: 'AAA' }"
    */
-  async getInsertOrUpdateSQL(
-    tableName: string,
-    keyJson: any,
-    valuesJson: any
-  ): Promise<{ sql: string; param: any[] }> {
+  async getInsertOrUpdateSQL(tableName: string, keyJson: any, valuesJson: any): Promise<{ sql: string; param: any[] }> {
     // console.log(tableName, keyJson, valuesJson );
     const where = this.makeWhereSQL(keyJson);
     const whereParams = this.buildParams(keyJson);
@@ -158,13 +154,13 @@ export class BaseDao {
 
     const selsql = `SELECT * FROM ${tableName} WHERE ${where} `;
     // console.log(selsql);
-    const results = await this.db.query(this.con, selsql, whereParams);
+    const results = await this.db.query(selsql, whereParams);
 
     // 存在するならアップデート
     // let resultAll = null;
     if (results.length > 0) {
       // resultAll = await this.db.execute(this.con, update, updateParams);
-      await this.db.execute(this.con, update, updateParams);
+      await this.db.execute(update, updateParams);
       // 存在しないならインサート
       return { sql: update, param: updateParams };
     } else {
@@ -177,20 +173,12 @@ export class BaseDao {
    * @param {*} valuesJson key 以外の項目JSON
    * @param {*} keyJson "{ user_id: 1 , project_id: 'AAA' }"
    */
-  async insertOrUpdateByObject(
-    tableName: string,
-    keyJson: any,
-    valuesJson: any
-  ): Promise<ResultSetHeader> {
-    const result = await this.getInsertOrUpdateSQL(
-      tableName,
-      keyJson,
-      valuesJson
-    );
+  async insertOrUpdateByObject(tableName: string, keyJson: any, valuesJson: any): Promise<ResultSetHeader> {
+    const result = await this.getInsertOrUpdateSQL(tableName, keyJson, valuesJson);
 
     console.log("insertOrUpdate", result.sql, result.param);
 
-    const resultAll = await this.db.execute(this.con, result.sql, result.param);
+    const resultAll = await this.db.execute(result.sql, result.param);
     return resultAll;
   }
 }

@@ -49,12 +49,12 @@ export class EntityMeta {
    * @returns 文字列
    */
   getPrimaryKeysDefString() {
-    const keyProperties = this.fields.filter((f) => f.isKey);
+    const keyProperties = this.fields.filter(f => f.isKey);
 
-    const keysObj = keyProperties.map((f) => {
+    const keysObj = keyProperties.map(f => {
       return `    "${f.pName}" : this.${f.pName} \n`;
     });
-    const keysDef = keyProperties.map((f) => {
+    const keysDef = keyProperties.map(f => {
       return `"${f.pName}": ${f.type} | undefined`;
     });
 
@@ -70,7 +70,7 @@ export class EntityMeta {
   }
 
   getEntityFromDBRecordString() {
-    const properties = this.fields.map((f) => {
+    const properties = this.fields.map(f => {
       return `    entity.${f.pName} = record['${f.pName}'];\n`;
     });
 
@@ -89,7 +89,7 @@ export class EntityMeta {
    * @returns
    */
   getTypeFitEntityFromAny() {
-    const properties = this.fields.map((f) => {
+    const properties = this.fields.map(f => {
       return `    entity.${f.pName} = value.${f.pName};\n`;
     });
 
@@ -136,19 +136,19 @@ export class EntityMeta {
 
   toDaoString(): string {
     const selectWhere = this.fields
-      .filter((f) => f.isKey)
-      .map((f) => ` ${f.pName} = ? `)
+      .filter(f => f.isKey)
+      .map(f => ` ${f.pName} = ? `)
       .join(" AND ");
     const selectArgs = this.fields
-      .filter((f) => f.isKey)
+      .filter(f => f.isKey)
       .map((f: FieldMeta) => `${f.pName}: ${f.type}`)
       .join(", ");
     const selectParams = this.fields
-      .filter((f) => f.isKey)
+      .filter(f => f.isKey)
       .map((f: FieldMeta) => `${f.pName}`)
       .join(", ");
     const keyVoString = this.fields
-      .filter((f) => f.isKey)
+      .filter(f => f.isKey)
       .map((f: FieldMeta) => `${f.pName}: value.${f.pName}`)
       .join(", ");
 
@@ -163,14 +163,14 @@ export class EntityMeta {
     entityString += `  // ${this.pClassName}を全件取得\n`;
     entityString += `  async selectAll(): Promise<${this.pClassName}[]> {\n`;
     entityString += `    const sql = 'SELECT * FROM ${this.pName} ';\n`;
-    entityString += `    return await this.db.query<${this.pClassName}>(this.con, sql);\n`;
+    entityString += `    return await this.db.query<${this.pClassName}>(sql);\n`;
     entityString += `  }\n`;
 
     entityString += `  // ${this.pClassName}を主キーで取得\n`;
     entityString += `  async selectById(${selectArgs}): Promise<${this.pClassName}> {\n`;
     entityString += `    const sql = 'SELECT * FROM ${this.pName} WHERE ${selectWhere} ';\n`;
     entityString += `    const params = [${selectParams}];\n`;
-    entityString += `    const results = await this.db.query<${this.pClassName}>(this.con, sql, params);\n`;
+    entityString += `    const results = await this.db.query<${this.pClassName}>(sql, params);\n`;
     entityString += `    return results[0];\n`;
     entityString += `  }\n`;
 
@@ -178,14 +178,14 @@ export class EntityMeta {
     entityString += `  async deleteById(${selectArgs}): Promise<ResultSetHeader> {\n`;
     entityString += `    const sql = 'DELETE FROM ${this.pName} WHERE ${selectWhere} ';\n`;
     entityString += `    const params = [${selectParams}];\n`;
-    entityString += `    return await this.db.execute(this.con, sql, params);\n`;
+    entityString += `    return await this.db.execute(sql, params);\n`;
     entityString += `  }\n`;
 
     entityString += `  // ${this.pClassName}を挿入\n`;
     entityString += `  async insert(value: ${this.pClassName}): Promise<ResultSetHeader> {\n`;
     entityString += `    const sql = this.makeInsertSQL('${this.pName}', value);\n`;
     entityString += `    const params = this.buildParams(value);\n`;
-    entityString += `    return await this.db.execute(this.con, sql, params);\n`;
+    entityString += `    return await this.db.execute(sql, params);\n`;
     entityString += `  }\n`;
 
     entityString += `  // ${this.pClassName}を主キーで更新\n`;
@@ -193,7 +193,7 @@ export class EntityMeta {
     entityString += `    const keyVo = { ${keyVoString} };\n`;
     entityString += `    const sql = this.makeUpdateSQL('${this.pName}', keyVo, value);\n`;
     entityString += `    const params = this.buildParams(value);\n`;
-    entityString += `    return await this.db.execute(this.con, sql, params);\n`;
+    entityString += `    return await this.db.execute(sql, params);\n`;
     entityString += `  }\n`;
 
     entityString += `  // ${this.pClassName}を主キーで検索し、なければ挿入、あれば更新\n`;
