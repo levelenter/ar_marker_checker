@@ -5,8 +5,8 @@
 </template>
 <script lang="ts">
 import { defineComponent } from "@vue/runtime-core";
-import { TableColumn } from "../../framework/components/table/TableColumn";
-import LeafTable from "../../framework/components/table/LeafTable.vue";
+import { TableColumn } from "../../../framework/components/table/TableColumn";
+import LeafTable from "../../../framework/components/table/LeafTable.vue";
 
 export default defineComponent({
   components: { LeafTable },

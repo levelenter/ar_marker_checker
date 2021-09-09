@@ -6,6 +6,7 @@
       <div>
         <a id="sign_in_button" class="btn btn-outline-secondary btn-sm" role="button" href="#" @click="openDialog">ログイン</a>
       </div>
+
       <login-dialog />
     </nav>
   </header>

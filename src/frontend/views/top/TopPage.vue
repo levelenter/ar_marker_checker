@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div>{{ props }}</div>
-    <div>{{ context }}</div>
-    <button @click="next">next</button>
+    <button @click="gotoTablePage">Goto Table Page</button>
   </div>
 </template>
 <script lang='ts'>
@@ -13,11 +11,11 @@ export default defineComponent({
   setup: (prop, context) => {
     const router = useRouter();
     const props = reactive(prop);
-    const next = () => {
-      router.push("/next");
+    const gotoTablePage = () => {
+      router.push({ name: "TablePage" });
     };
     return {
-      next,
+      gotoTablePage,
       props,
       context,
     };
