@@ -1,8 +1,5 @@
 <template>
-  <button
-    class="button is-primary"
-    @click="onClick"
-  >
+  <button class="button is-primary" @click="onClick">
     <!-- @slot default inner button content -->
     <slot></slot>
   </button>
@@ -10,7 +7,7 @@
 
 <script lang="ts">
 export default {
-  name: 'MyButton',
+  name: "MyButton",
 
   methods: {
     onClick() {
@@ -19,10 +16,10 @@ export default {
        *
        * @event click
        */
-      this.$emit('click')
-    }
-  }
-}
+      this.$emit("click");
+    },
+  },
+};
 </script>
 
 <style scoped>
