@@ -12,6 +12,13 @@ SET CHARACTER_SET_CLIENT = utf8;
 SET CHARACTER_SET_CONNECTION = utf8;
 
 
+SET SQL_MODE = '';
+
+SET CHARACTER_SET_CLIENT = utf8;
+
+SET CHARACTER_SET_CONNECTION = utf8;
+
+
 -- Project Name : def_academy
 -- Date/Time    : 2021/06/18 10:46:46
 -- Author       : dai.yamamoto
