@@ -1,9 +1,6 @@
 <template>
   <div>
-    <LeafTable
-      :rows="rows"
-      :columns="cols"
-    />
+    <LeafTable :rows="rows" :columns="cols" />
   </div>
 </template>
 <script lang="ts">
