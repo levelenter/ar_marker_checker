@@ -9,11 +9,11 @@ import { distinctArray, flatArray } from "./common";
  */
 export function ignoreTokenFileCreate(classes: MetaClass[], filePath: string) {
   // 無視するメソッドのリストを作成
-  const ignores = classes.map((c) => c.methods.map((m) => m.ignoredString));
+  const ignores = classes.map(c => c.methods.map(m => m.ignoredString));
 
   // フラット化
   const list = flatArray(ignores)
-    .filter((i) => i)
+    .filter(i => i)
     .join("\n");
 
   // 配列にする
@@ -46,9 +46,9 @@ function getAllExpressRoutingString(classes: MetaClass[]): string {
  */
 function getParamTypeImport(classes) {
   // 引数の型のインポート部分をまとめる
-  const paramDefImportStringArray = classes.map((c) => {
+  const paramDefImportStringArray = classes.map(c => {
     if (!c.hasRestMetod) return [];
-    return c.paramDefImportStringArray;
+    return c.paramDefImportStringArrayForExpress;
   });
   return flatArray<string>(paramDefImportStringArray);
 }
@@ -59,15 +59,12 @@ function getParamTypeImport(classes) {
  * @param paramImportArray
  * @returns
  */
-function mergeImportArrayString(
-  classImportArray: string[],
-  paramImportArray: string[]
-) {
+function mergeImportArrayString(classImportArray: string[], paramImportArray: string[]) {
   //
   const importArray = paramImportArray.concat(classImportArray);
 
   const importArrayString = distinctArray(importArray)
-    .filter((i) => i)
+    .filter(i => i)
     .join("\n");
   console.log("importArrayString", importArrayString);
   return importArrayString;
@@ -83,15 +80,10 @@ export function generateRestAPI(classes: MetaClass[], filePath: string) {
   const paramImportArray = getParamTypeImport(classes);
 
   // サービスクラスのインポート文字列
-  const classImportArray = classes.map((c) =>
-    c.getServiceImportForExpressRouter()
-  );
+  const classImportArray = classes.map(c => c.getServiceImportForExpressRouter());
 
   // インポート文字列をマージして整理
-  const importArrayString = mergeImportArrayString(
-    classImportArray,
-    paramImportArray
-  );
+  const importArrayString = mergeImportArrayString(classImportArray, paramImportArray);
 
   // インポート部分
   let src = "";

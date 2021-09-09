@@ -1,44 +1,35 @@
 import fs from "fs";
 import config from "../../../../config/generator.config";
 
-const DTO_DIR_FILES_PATH = config.rest.service.import.dto;
-const GEN_ENTITY_DIR_FILES_PATH = config.rest.service.import.entity;
-const PARAMS_DIR_FILES_PATH = config.rest.service.import.param;
+const DTO_DIR_FILES_PATH = config.rest.service.scandir.dto;
+const GEN_ENTITY_DIR_FILES_PATH = config.rest.service.scandir.entity;
+const PARAMS_DIR_FILES_PATH = config.rest.service.scandir.param;
+
 // 引数のインポートをしないプリミティブ型
-export const Primitive = [
-  "string",
-  "number",
-  "boolean",
-  "void",
-  "any",
-  "undefined",
-  "Date",
-];
+export const Primitive = ["string", "number", "boolean", "void", "any", "undefined", "Date"];
 
 /**
  * 型に含められるクラスの種類を返す（entity dao paramだけ）
  * @param typeName
  */
-export function findClassDef(
-  typeName: string
-): "entity" | "dto" | "param" | null {
+export function findClassDef(typeName: string): "entity" | "dto" | "param" | null {
   const tsf = `${typeName}.ts`;
 
   // エンティティとDTOのフォルダに含むファイル名リスト
   const ENTITY_DIR_FILES = fs.readdirSync(DTO_DIR_FILES_PATH);
-  const entitis = ENTITY_DIR_FILES.filter((v) => v === tsf);
+  const entitis = ENTITY_DIR_FILES.filter(v => v === tsf);
   if (entitis.length > 0) {
     return "dto";
   }
 
   const GEN_ENTITY_DIR_FILES = fs.readdirSync(GEN_ENTITY_DIR_FILES_PATH);
-  const genEntities = GEN_ENTITY_DIR_FILES.filter((v) => v === tsf);
+  const genEntities = GEN_ENTITY_DIR_FILES.filter(v => v === tsf);
   if (genEntities.length > 0) {
     return "entity";
   }
 
   const PARAMS_DIR_FILES = fs.readdirSync(PARAMS_DIR_FILES_PATH);
-  const params = PARAMS_DIR_FILES.filter((v) => v === tsf);
+  const params = PARAMS_DIR_FILES.filter(v => v === tsf);
   if (params.length > 0) {
     return "param";
   }

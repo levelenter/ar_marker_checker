@@ -4,7 +4,7 @@
       <!-- <a href="#"><img src="../../assets/logo.png" height="40" /></a> -->
 
       <div>
-        <a id="sign_in_button" class="btn btn-outline-secondary btn-sm" role="button" href="#" @click="openDialog">サインイン</a>
+        <a id="sign_in_button" class="btn btn-outline-secondary btn-sm" role="button" href="#" @click="openDialog">ログイン</a>
       </div>
       <login-dialog />
     </nav>
@@ -12,8 +12,7 @@
 </template>
 <script lang='ts'>
 import { defineComponent, reactive, ref } from "@vue/runtime-core";
-import { showDialog } from "@/framework/components/dialog/CoreDialog.vue";
-import LoginDialog from "./dialog/LoginDialog.vue";
+import LoginDialog, { showLoginDialog } from "./dialog/LoginDialog.vue";
 
 export default defineComponent({
   components: { LoginDialog },
@@ -21,7 +20,7 @@ export default defineComponent({
   setup: (prop, context) => {
     const props = reactive(prop);
     const openDialog = () => {
-      showDialog();
+      showLoginDialog();
     };
 
     return {

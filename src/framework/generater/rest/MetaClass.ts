@@ -38,7 +38,7 @@ export class MetaClass {
     const result = this.methods.map(m => m.importString);
 
     // ベースクラスをインポートする
-    result.push(`import { GeneratedBizBase } from '../../../framework/client/GeneratedBizBase';`);
+    result.push(`import { GeneratedBizBase } from '../../../framework/frontend/GeneratedBizBase';`);
 
     // レスポンスクラスをインポートする
     if (hasResponseType) {
@@ -79,6 +79,13 @@ export class MetaClass {
   public getServiceImportForExpressRouter(): string {
     if (!this.hasRestMetod) return "";
     return `import { ${this.name} } from '${SERVICE_DIR_FROM_ROUTER}${this.name}';`;
+  }
+
+  /**
+   * 各メソッドの引数の型をインポートする文字列配列（サーバーサイドRESTで使用）
+   */
+  public get paramDefImportStringArrayForExpress() {
+    return flatArray<string>(this.methods.map(m => m.paramDefImportStringArrayForExpress));
   }
 
   /**

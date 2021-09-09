@@ -47,6 +47,10 @@ export class AuthService {
 
     // ログインできなかった
     if (users.length < 1) throw new RecoverableError("メールアドレスまたはパスワードが間違っています");
+    const user = users[0];
+
+    // ログインカウントアップ
+    await dao.updateLoginCount(user);
 
     console.log("ログインできた");
     const name = users[0].display_name;

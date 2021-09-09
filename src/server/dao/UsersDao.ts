@@ -14,6 +14,12 @@ export class UsersDao extends UsersDaoGen {
     return this.db.query<Users>(sql, param);
   }
 
+  async updateLoginCount(user: Users) {
+    const sql = `update users set login_count = ? where user_id = ?`;
+    const param = [user.login_count + 1, user.user_id];
+    return this.db.execute(sql, param);
+  }
+
   async insertUser(userId: string, name: string, mail: string, hash: string) {
     const insertSql = "insert into users (user_id, name ,email, password_hash) values (?, ?, ?, ? )";
     const param = [userId, name, mail, hash];

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <core-dialog title="ログイン">
+    <core-dialog id="loginDialog" title="ログイン">
       <div class="">
         <div class="d-flex my-2">
-          <label class="w-25" for="mail">Email</label>
+          <label class="w-25" for="mail">メールアドレス</label>
           <input id="mail" v-model="user.mail" type="text" class="form-controll w-75" />
         </div>
         <div class="d-flex">
@@ -19,12 +19,16 @@
   </div>
 </template>
 <script lang='ts'>
-import CoreDialog, { hideDialog } from "@/framework/components/dialog/CoreDialog.vue";
-import { defineComponent, reactive, toRefs } from "@vue/runtime-core";
+import CoreDialog, { hideDialog, showDialog } from "@/framework/components/dialog/CoreDialog.vue";
+import { defineComponent, reactive } from "@vue/runtime-core";
 import { AuthService } from "../../biz/remote/AuthService";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { Session } from "@/framework/frontend/Session";
 import { MessageDialog } from "@/framework/frontend/MessageDialog";
+
+// ダイアログを開く
+export const showLoginDialog = () => showDialog("loginDialog");
+
 export default defineComponent({
   components: { CoreDialog },
   props: {},
@@ -34,7 +38,7 @@ export default defineComponent({
       password: "",
     });
     const router = useRouter();
-    console.log(router);
+    const route = useRoute();
 
     const props = reactive(prop);
     const login = async () => {
@@ -47,9 +51,8 @@ export default defineComponent({
         return;
       }
       Session.set("USER", result.data);
-      hideDialog();
-
-      const redirectPath = new URLSearchParams(location.search).get("redirect") || `/top_page`;
+      hideDialog("loginDialog");
+      const redirectPath = (route.params.redirect as string) || `/top_page`;
       router.push(redirectPath);
     };
     return {

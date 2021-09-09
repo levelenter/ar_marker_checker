@@ -116,6 +116,14 @@
       "warnOnUnsupportedTypeScriptVersion": false
     },
     "rules": {
+      "max-len": [
+        "error",
+        {
+          "code": 180
+        }
+      ],
+      "vue/max-attributes-per-line": "off",
+      "vue/singleline-html-element-content-newline": "off",
       "prefer-rest-params": "off",
       "no-explicit-any": "off",
       "vue/html-self-closing": "off"
