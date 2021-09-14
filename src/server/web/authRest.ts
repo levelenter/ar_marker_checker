@@ -27,15 +27,12 @@ authRest.use((req, res, next) => {
   // indexはトークン除外
   ignoreTokenUriList.push({
     uri: "/",
-    httpMethod: "get",
+    httpMethod: "get"
   });
 
   // トークン無視していいリストに入っていたら無視
-  const ignoreUri = ignoreTokenUriList.some((item) => {
-    return (
-      item.uri.toLowerCase() === req.path.toLowerCase() &&
-      req.method.toLowerCase() === item.httpMethod.toLowerCase()
-    );
+  const ignoreUri = ignoreTokenUriList.some(item => {
+    return item.uri.toLowerCase() === req.path.toLowerCase() && req.method.toLowerCase() === item.httpMethod.toLowerCase();
   });
 
   if (ignoreUri) {
@@ -44,8 +41,7 @@ authRest.use((req, res, next) => {
   }
 
   // ポスト本体、URLパラメータ、HTTPヘッダいずれかにトークンがセットされているか調べる
-  const token =
-    req.body.token || req.query.token || req.headers["x-access-token"];
+  const token = req.body.token || req.query.token || req.headers["x-access-token"];
   if (!token) {
     // トークンが設定されていなかった場合は無条件に 403 エラー
     return res.status(403).send({ message: messageResource.NO_JWT_TOKEN });
@@ -57,9 +53,7 @@ authRest.use((req, res, next) => {
       if (err) {
         console.error(`jwt verify error`, jwt.decode(token));
         // 正当な値ではなかった場合はエラーメッセージを返す
-        return res
-          .status(200)
-          .json({ message: messageResource.INVALID_TOKEN, status: 403 });
+        return res.status(200).json({ message: messageResource.INVALID_TOKEN, status: 403 });
       } else {
         // 正当な値が設定されていた場合は処理を続ける
         (req as any).decoded = decoded;

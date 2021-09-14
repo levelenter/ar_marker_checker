@@ -11,7 +11,7 @@
     </nav>
   </header>
 </template>
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, reactive, ref } from "@vue/runtime-core";
 import LoginDialog, { showLoginDialog } from "./dialog/LoginDialog.vue";
 
@@ -27,8 +27,8 @@ export default defineComponent({
     return {
       props,
       context,
-      openDialog,
+      openDialog
     };
-  },
+  }
 });
 </script>

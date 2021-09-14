@@ -15,10 +15,15 @@ export const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
+// フォールバックの前なら普通の遷移可能
+// app.get("/test", (req, res) => {
+//   res.json({ test: "test" });
+// });
+
 // Vuejs用index.html以外のアクセスをindex.htmlへフォールバック/APIへのアクセスは通したいのでtext/htmlのみを対象とする
 const vueFallback = history({
   disableDotRule: true,
-  htmlAcceptHeaders: ["text/html"],
+  htmlAcceptHeaders: ["text/html"]
 });
 app.use(vueFallback);
 

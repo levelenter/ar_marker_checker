@@ -1,7 +1,7 @@
-﻿# A5:ER FORMAT:14
+﻿# A5:ER FORMAT:15
 # A5:ER ENCODING:UTF8
-# A5:ER Mk-1 Copyright (C)2007 m.matsubara
-# A5:SQL Mk-2 Copyright (C)1997 m.matsubara
+# A5:ER Mk-1 Copyright © 2007 m.matsubara
+# A5:SQL Mk-2 Version 2.16.1 Copyright © 1997 - 2021 m.matsubara
 #  https://a5m2.mmatsubara.com
 
 [Manager]
@@ -110,3 +110,22 @@ BkColor=$FFFFFF
 ModifiedDateTime=20210618104554
 Position="メイン",1200,350,807,598
 ZOrder=113
+
+[Entity]
+PName=leaf_quiz
+LName=クイズ
+Comment=
+TableOption=
+Page=メイン
+Left=2100
+Top=350
+Field="","quiz_id","*autokey",,0,"","",$FFFFFFFF,""
+Field="","quiz_title","*varchar256",,,"","",$FFFFFFFF,""
+Field="","quiz_contents","MEDIUMTEXT",,,"","",$FFFFFFFF,""
+Field="","quiz_auther","*fk",,,"","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20210913153119
+Position="メイン",2100,350,471,225
+ZOrder=114

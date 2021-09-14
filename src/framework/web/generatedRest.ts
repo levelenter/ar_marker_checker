@@ -1,6 +1,7 @@
 import express from 'express';
 import { errorHandler } from './web_handler';
 import { AuthService } from '../../server/biz/AuthService';
+import { QuizService } from '../../server/biz/QuizService';
 import { TestService } from '../../server/biz/TestService';
 
 
@@ -24,10 +25,36 @@ async (req: express.Request, res: express.Response) => {
 
 
 
+generatedRest.get("/v1/QuizService/getAll",
+async (req: express.Request, res: express.Response) => {
+  const biz = new QuizService();
+  biz.getAll()
+    .then(result => res.send(result))
+    .catch(error => errorHandler(res, error));
+});
+
+generatedRest.get("/v1/QuizService/getById",
+async (req: express.Request, res: express.Response) => {
+  const biz = new QuizService();
+  biz.getById(parseFloat(req.query[0] as string) as number)
+    .then(result => res.send(result))
+    .catch(error => errorHandler(res, error));
+});
+
+
+
 generatedRest.get("/v1/TestService/getByNote",
 async (req: express.Request, res: express.Response) => {
   const biz = new TestService();
   biz.getByNote(req.query[0] as string)
+    .then(result => res.send(result))
+    .catch(error => errorHandler(res, error));
+});
+
+generatedRest.get("/v1/TestService/getAll",
+async (req: express.Request, res: express.Response) => {
+  const biz = new TestService();
+  biz.getAll()
     .then(result => res.send(result))
     .catch(error => errorHandler(res, error));
 });
