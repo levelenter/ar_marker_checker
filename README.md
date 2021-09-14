@@ -1,3 +1,17 @@
+server
+snippets :bts
+server/biz/Service.ts
+dao で service の内容を構築
+generater から SQL をとってくる関数を呼び出して db とやり取りをする。
+@Rest("/v1/QuizService/getById", "get")
+@Transactional("connection")
+async getById(id: number): Promise<Response<LeafQuiz>> {
+/_ const result = "quiz"; _/
+const dao = new LeafQuizDao(this.connection);
+const result = await dao.selectById(id);
+return new Response<LeafQuiz>(result);
+}
+
 # vue-docker-aframe
 
 ## Project setup

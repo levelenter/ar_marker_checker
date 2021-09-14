@@ -18,4 +18,16 @@ export class TestService {
     const data = await dao.selectByNote(sentence);
     return new Response(data);
   }
+
+  /**
+   * ビジネスロジックメソッドのテンプレート
+   */
+  @Rest("/v1/TestService/getAll", "get", false)
+  @Transactional("connection")
+  async getAll(): Promise<Response<SampleTable[]>> {
+    console.log("connection", this.connection.threadId);
+    const dao = new SampleTableDao(this.connection);
+    const data = await dao.selectAll();
+    return new Response(data);
+  }
 }

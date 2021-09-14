@@ -18,7 +18,7 @@
     </core-dialog>
   </div>
 </template>
-<script lang='ts'>
+<script lang="ts">
 import CoreDialog, { hideDialog, showDialog } from "@/framework/components/dialog/CoreDialog.vue";
 import { defineComponent, reactive } from "@vue/runtime-core";
 import { AuthService } from "../../biz/remote/AuthService";
@@ -35,7 +35,7 @@ export default defineComponent({
   setup: (prop, context) => {
     const user = reactive({
       mail: "",
-      password: "",
+      password: ""
     });
     const router = useRouter();
     const route = useRoute();
@@ -48,7 +48,10 @@ export default defineComponent({
       // ログインエラーならFrameworkでエラーが出る
       if (result.hasError) {
         await MessageDialog.alertModal(result.errorDescription);
-        return;
+        console.log(user);
+        const redirectPath = (route.params.redirect as string) || `/top_page`;
+        router.push(redirectPath);
+        /* return; */
       }
       Session.set("USER", result.data);
       hideDialog("loginDialog");
@@ -59,8 +62,8 @@ export default defineComponent({
       login,
       props,
       user,
-      context,
+      context
     };
-  },
+  }
 });
 </script>

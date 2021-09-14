@@ -3,6 +3,7 @@ import { createRouter, createWebHistory, RouteRecordRaw, RouteLocationNormalized
 import Home from "../views/Home.vue";
 import TablePage from "@/frontend/views/table/TablePage.vue";
 import TopPage from "@/frontend/views/top/TopPage.vue";
+import EditPage from "@/frontend/views/edit/EditPage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -17,10 +18,17 @@ const routes: Array<RouteRecordRaw> = [
     component: TablePage,
     meta: { requireAuth: true }
   },
+
   {
     path: "/top_page",
     name: "TopPage",
     component: TopPage,
+    meta: { requireAuth: true }
+  },
+  {
+    path: "/edit_page",
+    name: "EditPage",
+    component: EditPage,
     meta: { requireAuth: true }
   }
 ];
