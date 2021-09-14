@@ -5,6 +5,13 @@ SET CHARACTER_SET_CLIENT = utf8;
 SET CHARACTER_SET_CONNECTION = utf8;
 
 
+SET SQL_MODE = '';
+
+SET CHARACTER_SET_CLIENT = utf8;
+
+SET CHARACTER_SET_CONNECTION = utf8;
+
+
 -- Project Name : def_academy
 -- Date/Time    : 2021/09/13 15:32:26
 -- Author       : dai.yamamoto
@@ -37,7 +44,7 @@ create table `users` (
   , `join_dt` DATETIME comment '登録日時'
   , `last_login_dt` DATETIME comment '最終ログイン日時'
   , `login_count` INT comment 'ログイン回数'
-  , `password_hash` VARCHAR(64) comment 'パスワードハッシュ'
+  , `password_hash` VARCHAR(256) comment 'パスワードハッシュ'
   , `photo_url` VARCHAR(256) comment '写真URL'
   , `email_verified` TINYINT(1) comment 'メール確認'
   , `sys_insert_dt` DATETIME default CURRENT_TIMESTAMP not null comment '挿入日時'

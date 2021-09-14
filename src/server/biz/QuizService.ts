@@ -25,11 +25,13 @@ export class QuizService {
     const result = await dao.selectById(id);
     return new Response<LeafQuiz>(result);
   }
-  /* @Rest("/v1/QuizService/setUpdate", "post")
+  @Rest("/v1/QuizService/quizUpdate", "post")
   @Transactional("connection")
-  async setUpdate(value: LeafQuiz): Promise<Response<LeafQuiz>> {
+  async quizUpdate(id: number, title: string, contents: string, auther: string): Promise<Response<string>> {
     const dao = new LeafQuizDao(this.connection);
-    const result = await dao.update(value);
-    return new Response<LeafQuiz>(result);
-  } */
+    /* const value = `{"id":${id}, "title":${title},"contents":${contents},"auther":${auther},}`;
+    const obj = JSON.parse(value); */
+    const result = await dao.updateQuiz(id, title, contents, auther);
+    return new Response<string>("aaa");
+  }
 }

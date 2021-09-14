@@ -1,11 +1,15 @@
 <template>
   <div>
     {{ title }}
-    <input type="text" v-model="messageRef" />
+    <!-- <input type="text" v-model="messageRef" />
     <br />
-    {{ messageRef }}
+    {{ messageRef }} -->
     <br />
-    <input type="text" v-model="list" />
+    <input type="text" v-model="list.quiz_title" id="title" />
+    <br />
+    <input type="text" v-model="list.quiz_contents" />
+    <br />
+    <input type="text" v-model="list.quiz_auther" />
     <br />
     <button @click="update">Update</button>
   </div>
@@ -44,8 +48,12 @@ export default defineComponent({
     init().then();
 
     const update = async () => {
-      const message = `${route.query.selectedId}  : ${list.value.quiz_contents} `;
-      alert(message);
+      /* const message = `${route.query.selectedId}  : ${list.value.quiz_contents} `;
+      alert(message); */
+      const biz = new QuizService();
+      console.log(biz.quizUpdate());
+      const result = await biz.quizUpdate(1, "def", "def", "2");
+      console.log(result);
     };
     return {
       list,
