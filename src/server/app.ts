@@ -12,13 +12,13 @@ export const app = express();
 /**
  * Body部をJSONとして扱う設定
  */
-app.use(express.json());
-app.use(express.urlencoded({ limit: "50mb", extended: true }));
+app.use(express.json({ limit: "50mb" }) as any);
+app.use(express.urlencoded({ limit: "50mb", extended: true }) as any);
 
 // Vuejs用index.html以外のアクセスをindex.htmlへフォールバック/APIへのアクセスは通したいのでtext/htmlのみを対象とする
 const vueFallback = history({
   disableDotRule: true,
-  htmlAcceptHeaders: ["text/html"],
+  htmlAcceptHeaders: ["text/html"]
 });
 app.use(vueFallback);
 
