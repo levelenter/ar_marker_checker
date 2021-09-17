@@ -5,7 +5,7 @@
     <br />
     {{ messageRef }} -->
     <br />
-    <input type="text" v-model="list.quiz_title" id="title" />
+    <input type="text" v-model="list.quiz_title" />
     <br />
     <input type="text" v-model="list.quiz_contents" />
     <br />
@@ -41,7 +41,8 @@ export default defineComponent({
 
     const init = async () => {
       const biz = new QuizService();
-      const result = await biz.getById(1);
+      const id = Number(route.query.selectedId);
+      const result = await biz.getById(id);
       console.log(result);
       list.value = result.data;
     };
@@ -51,8 +52,9 @@ export default defineComponent({
       /* const message = `${route.query.selectedId}  : ${list.value.quiz_contents} `;
       alert(message); */
       const biz = new QuizService();
-      console.log(biz.quizUpdate());
-      const result = await biz.quizUpdate(1, "def", "def", "2");
+      console.log(list.value);
+      const value = list.value;
+      const result = await biz.quizUpdate(value);
       console.log(result);
     };
     return {

@@ -27,11 +27,10 @@ export class QuizService {
   }
   @Rest("/v1/QuizService/quizUpdate", "post")
   @Transactional("connection")
-  async quizUpdate(id: number, title: string, contents: string, auther: string): Promise<Response<string>> {
+  async quizUpdate(value: LeafQuiz): Promise<Response<number>> {
     const dao = new LeafQuizDao(this.connection);
-    /* const value = `{"id":${id}, "title":${title},"contents":${contents},"auther":${auther},}`;
-    const obj = JSON.parse(value); */
-    const result = await dao.updateQuiz(id, title, contents, auther);
-    return new Response<string>("aaa");
+    const result = await dao.update(value);
+    const affectedRows = result.affectedRows;
+    return new Response<number>(affectedRows);
   }
 }
