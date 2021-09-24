@@ -47,7 +47,7 @@ export function loadBizClass(): MetaClass[] {
     const node = loadFile(fileName, IF_PATH);
     const srcFile = node.getSourceFile();
 
-    node.forEachChild(child => {
+    node.forEachChild((child) => {
       if (!ts.isClassDeclaration(child)) {
         console.error(`${fileName}はクラスではありません`);
         return;
@@ -60,7 +60,7 @@ export function loadBizClass(): MetaClass[] {
       metaClass.name = child.name.escapedText.toString();
       console.log(metaClass.name);
 
-      child.members.forEach(member => {
+      child.members.forEach((member) => {
         if (ts.isMethodDeclaration(member)) {
           // メタメソッドのインスタンスを生成
           const metaMethod = new MetaMethod();
@@ -70,8 +70,8 @@ export function loadBizClass(): MetaClass[] {
           metaMethod.name = name.getText(srcFile);
 
           // パラメータを取り出す
-          metaMethod.params = member.parameters.map(param => {
-            if (!param.type) throw new Error(`クラス:${fileName} メンバ:${member.name.getText(srcFile)} 引数:${param.name.getText(srcFile)}の引数の型が指定されませんでした`);
+          metaMethod.params = member.parameters.map((param) => {
+            if (!param.type) throw new Error("タイプが取れない");
             const metaParam = new MetaParam();
             metaParam.name = param.name.getText(srcFile);
             metaParam.type = param.type.getText(srcFile);
@@ -79,12 +79,12 @@ export function loadBizClass(): MetaClass[] {
           });
 
           // 戻り値
-          if (!member.type) throw new Error(`クラス:${fileName} メンバ:${member.name.getText(srcFile)} の戻り値型が取れない`);
+          if (!member.type) throw new Error("メソッドタイプが取れない");
           metaMethod.returnType = member.type.getText(srcFile);
 
-          if (!member.decorators) return; //throw new Error("デコレータが取れない");
+          if (!member.decorators) throw new Error("デコレータが取れない");
 
-          member.decorators.forEach(dec => {
+          member.decorators.forEach((dec) => {
             // console.log('dec ex', dec.expression);
             const l1 = ts.SyntaxKind[dec.expression.kind];
             // console.log('l1', l1);
