@@ -3,6 +3,8 @@
     <ul>
       <li v-for="item of list" :key="item.quiz_id">{{ item.quiz_title }} {{ item.quiz_contents }}</li>
     </ul>
+    <input type="text" v-model="id" />
+    <br />
     <button @click="gotoTablePage">Goto Table Page</button><br />
     <button @click="gotoEditPage">Goto Edit Page</button>
   </div>
@@ -20,11 +22,12 @@ export default defineComponent({
     const gotoTablePage = () => {
       router.push({ name: "TablePage" });
     };
-    const gotoEditPage = () => {
-      router.push({ name: "EditPage", query: { selectedId: "aaa" } });
-    };
-    const list: Ref<LeafQuiz[]> = ref([]);
 
+    const list: Ref<LeafQuiz[]> = ref([]);
+    const id = ref();
+    const gotoEditPage = () => {
+      router.push({ name: "EditPage", query: { selectedId: id.value } });
+    };
     const init = async () => {
       const biz = new QuizService();
       const result = await biz.getAll();
@@ -36,6 +39,7 @@ export default defineComponent({
     init().then();
 
     return {
+      id,
       list,
       gotoTablePage,
       gotoEditPage

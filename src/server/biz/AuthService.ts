@@ -44,9 +44,9 @@ export class AuthService {
     // パスワードとアドレスでユーザを取得
     const dao = new UsersDao(this.connection);
     const users = await dao.getUserByMailAndPass(mail, hash);
-
+    console.log(users);
     // ログインできなかった
-    if (users.length < 1) throw new RecoverableError("メールアドレスまたはパスワードが間違っています");
+    if (users.length < 1) throw new RecoverableError("メールアドレスまたはパスワードが間違っています" + users);
     const user = users[0];
 
     // ログインカウントアップ

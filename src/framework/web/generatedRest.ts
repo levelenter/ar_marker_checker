@@ -1,5 +1,6 @@
 import express from 'express';
 import { errorHandler } from './web_handler';
+import { LeafQuiz } from '../../server/dto/generated/LeafQuiz';
 import { AuthService } from '../../server/biz/AuthService';
 import { QuizService } from '../../server/biz/QuizService';
 import { TestService } from '../../server/biz/TestService';
@@ -37,6 +38,14 @@ generatedRest.get("/v1/QuizService/getById",
 async (req: express.Request, res: express.Response) => {
   const biz = new QuizService();
   biz.getById(parseFloat(req.query[0] as string) as number)
+    .then(result => res.send(result))
+    .catch(error => errorHandler(res, error));
+});
+
+generatedRest.post("/v1/QuizService/quizUpdate",
+async (req: express.Request, res: express.Response) => {
+  const biz = new QuizService();
+  biz.quizUpdate(req.body[0] as LeafQuiz)
     .then(result => res.send(result))
     .catch(error => errorHandler(res, error));
 });

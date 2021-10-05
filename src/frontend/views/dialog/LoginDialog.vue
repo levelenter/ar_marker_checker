@@ -49,9 +49,9 @@ export default defineComponent({
       if (result.hasError) {
         await MessageDialog.alertModal(result.errorDescription);
         console.log(user);
-        const redirectPath = (route.params.redirect as string) || `/top_page`;
-        router.push(redirectPath);
-        /* return; */
+        /* const redirectPath = (route.params.redirect as string) || `/top_page`;
+        router.push(redirectPath); */
+        return;
       }
       Session.set("USER", result.data);
       hideDialog("loginDialog");
