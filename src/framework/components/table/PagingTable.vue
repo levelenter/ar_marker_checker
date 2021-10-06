@@ -74,7 +74,8 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props) {
+  emits: ["on-select-row"],
+  setup(props, context) {
     // リアクティブなプロパティを初期化する
     // eslint-disable-next-line vue/no-setup-props-destructure
     const { rows, inPageCount } = toRefs(props);
@@ -195,12 +196,16 @@ export default defineComponent({
       showPaginations();
     });
 
+    const onSelectRow = (row: any, event: any) => {
+      context.emit("on-select-row", row, event);
+    };
+
     return {
       total,
       paginations,
       currentPage,
       inPageRows,
-
+      onSelectRow,
       display,
       cellCss,
       sort,

@@ -4,7 +4,7 @@ import Home from "../views/Home.vue";
 import TablePage from "@/frontend/views/table/TablePage.vue";
 import TopPage from "@/frontend/views/top/TopPage.vue";
 import EditPage from "@/frontend/views/edit/EditPage.vue";
-
+import PagedList from "@/frontend/views/table/PagedList.vue";
 const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
@@ -25,6 +25,13 @@ const routes: Array<RouteRecordRaw> = [
     component: TopPage,
     meta: { requireAuth: true }
   },
+  {
+    path: "/paged_list",
+    name: "PagedList",
+    component: PagedList,
+    meta: { requireAuth: true }
+  },
+
   {
     path: "/edit_page",
     name: "EditPage",

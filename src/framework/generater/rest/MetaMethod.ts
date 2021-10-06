@@ -6,6 +6,7 @@ import { getGenericTypeArgType, isGenericType, trimQuate } from './util';
 
 const importPathFromRemote = config.rest.remote.import;
 const importPathForServer = config.rest.service.import;
+const scanPathForServer = config.rest.service.scandir;
 const frameWorkBizDir = config.framework.biz.dir;
 
 /**

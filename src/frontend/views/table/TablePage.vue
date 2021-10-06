@@ -1,15 +1,15 @@
 <template>
   <div>
-    <LeafTable :rows="rows" :columns="cols" />
+    <paging-table :rows="rows" :columns="cols" />
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from "@vue/runtime-core";
 import { TableColumn } from "../../../framework/components/table/TableColumn";
-import LeafTable from "../../../framework/components/table/LeafTable.vue";
+import PagingTable from "../../../framework/components/table/PagingTable.vue";
 
 export default defineComponent({
-  components: { LeafTable },
+  components: { PagingTable },
   setup() {
     const rows: { id: number; name: string; price: number; create: Date }[] = [];
     for (let i = 1; i <= 20; i++) {

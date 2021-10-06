@@ -4,11 +4,11 @@
       <div class="">
         <div class="d-flex my-2">
           <label class="w-25" for="mail">メールアドレス</label>
-          <input id="mail" v-model="user.mail" type="text" class="form-controll w-75" />
+          <input id="mail" v-model="user.mail" type="text" class="form-controll w-75" placeholder="デモユーザー => admin@example.com" />
         </div>
         <div class="d-flex">
           <label class="w-25" for="password">パスワード</label>
-          <input id="password" v-model="user.password" type="password" class="form-controll w-75" />
+          <input id="password" v-model="user.password" type="password" class="form-controll w-75" placeholder="デモユーザーパス => admin" />
         </div>
       </div>
       <template #footer>
@@ -35,7 +35,7 @@ export default defineComponent({
   setup: (prop, context) => {
     const user = reactive({
       mail: "",
-      password: ""
+      password: "",
     });
     const router = useRouter();
     const route = useRoute();
@@ -62,8 +62,8 @@ export default defineComponent({
       login,
       props,
       user,
-      context
+      context,
     };
-  }
+  },
 });
 </script>

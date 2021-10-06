@@ -1,6 +1,6 @@
-import fs from "fs";
-import { MetaClass } from "./MetaClass";
-import { distinctArray, flatArray } from "./common";
+import fs from 'fs';
+import { MetaClass } from './MetaClass';
+import { distinctArray, flatArray } from './common';
 
 /**
  * トークンを無視するための配列ファイルを生成
@@ -9,12 +9,12 @@ import { distinctArray, flatArray } from "./common";
  */
 export function ignoreTokenFileCreate(classes: MetaClass[], filePath: string) {
   // 無視するメソッドのリストを作成
-  const ignores = classes.map(c => c.methods.map(m => m.ignoredString));
+  const ignores = classes.map((c) => c.methods.map((m) => m.ignoredString));
 
   // フラット化
   const list = flatArray(ignores)
-    .filter(i => i)
-    .join("\n");
+    .filter((i) => i)
+    .join('\n');
 
   // 配列にする
   const src = `export const ignoreTokenUriList = [\n${list}\n];\n`;
@@ -30,13 +30,12 @@ export function ignoreTokenFileCreate(classes: MetaClass[], filePath: string) {
  * @returns
  */
 function getAllExpressRoutingString(classes: MetaClass[]): string {
-  return classes.reduce((a, c) => {
+  return classes.reduce((a, c): string => {
     // クラスがRESTメソッドを持っていなければスキップ
-    if (!c.hasRestMetod) return;
-
+    if (!c.hasRestMetod) return `${a}`;
     // クラスのRestコードを取得
     return `${a}${c.toRestString()}\n\n`;
-  }, "");
+  }, '');
 }
 
 /**
@@ -46,7 +45,7 @@ function getAllExpressRoutingString(classes: MetaClass[]): string {
  */
 function getParamTypeImport(classes) {
   // 引数の型のインポート部分をまとめる
-  const paramDefImportStringArray = classes.map(c => {
+  const paramDefImportStringArray = classes.map((c) => {
     if (!c.hasRestMetod) return [];
     return c.paramDefImportStringArrayForExpress;
   });
@@ -64,9 +63,9 @@ function mergeImportArrayString(classImportArray: string[], paramImportArray: st
   const importArray = paramImportArray.concat(classImportArray);
 
   const importArrayString = distinctArray(importArray)
-    .filter(i => i)
-    .join("\n");
-  console.log("importArrayString", importArrayString);
+    .filter((i) => i)
+    .join('\n');
+  console.log('importArrayString', importArrayString);
   return importArrayString;
 }
 
@@ -80,13 +79,13 @@ export function generateRestAPI(classes: MetaClass[], filePath: string) {
   const paramImportArray = getParamTypeImport(classes);
 
   // サービスクラスのインポート文字列
-  const classImportArray = classes.map(c => c.getServiceImportForExpressRouter());
+  const classImportArray = classes.map((c) => c.getServiceImportForExpressRouter());
 
   // インポート文字列をマージして整理
   const importArrayString = mergeImportArrayString(classImportArray, paramImportArray);
 
   // インポート部分
-  let src = "";
+  let src = '';
   src += `import express from 'express';\n`;
   src += `import { errorHandler } from './web_handler';\n`;
   src += `${importArrayString}\n\n\n`;

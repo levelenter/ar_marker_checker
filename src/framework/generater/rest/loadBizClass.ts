@@ -1,13 +1,13 @@
-import fs from "fs";
-import path from "path";
-import ts from "typescript";
+import fs from 'fs';
+import path from 'path';
+import ts from 'typescript';
 
-import { MetaClass } from "./MetaClass";
-import { MetaMethod } from "./MetaMethod";
-import { MetaParam } from "./MetaParam";
-import config from "../../../../config/generator.config";
+import { MetaClass } from './MetaClass';
+import { MetaMethod } from './MetaMethod';
+import { MetaParam } from './MetaParam';
+import config from '../../../../config/generator.config';
 
-import { createIfNotExist } from "./util";
+import { createIfNotExist } from './util';
 
 const IF_PATH = config.rest.service.dir;
 
@@ -28,7 +28,7 @@ function isDirectory(fileName: string, dir: string) {
  */
 function loadFile(fileName: string, dir: string) {
   const fullPath = path.join(dir, fileName);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
   const target = ts.ScriptTarget.Latest;
   const node = ts.createSourceFile(fileName, fileContents, target);
   return node;
@@ -44,12 +44,12 @@ export function loadBizClass(): MetaClass[] {
     if (isDirectory(fileName, IF_PATH)) {
       continue;
     }
-    const node = loadFile(fileName, IF_PATH);
-    const srcFile = node.getSourceFile();
+    const node: ts.SourceFile = loadFile(fileName, IF_PATH);
+    const srcFile: ts.SourceFile = node.getSourceFile();
 
-    node.forEachChild((child) => {
+    node.forEachChild((child: ts.Node) => {
       if (!ts.isClassDeclaration(child)) {
-        console.error(`${fileName}はクラスではありません`);
+        console.error(`${fileName}は装飾クラスではありません`);
         return;
       }
 
@@ -61,7 +61,9 @@ export function loadBizClass(): MetaClass[] {
       console.log(metaClass.name);
 
       child.members.forEach((member) => {
-        if (ts.isMethodDeclaration(member)) {
+        const declaration = ts.isMethodDeclaration(member);
+        // console.log('declaration', declaration);
+        if (declaration && member.decorators) {
           // メタメソッドのインスタンスを生成
           const metaMethod = new MetaMethod();
 
@@ -71,7 +73,7 @@ export function loadBizClass(): MetaClass[] {
 
           // パラメータを取り出す
           metaMethod.params = member.parameters.map((param) => {
-            if (!param.type) throw new Error("タイプが取れない");
+            if (!param.type) throw new Error(`クラス:${fileName} メンバ:${member.name.getText(srcFile)} 引数:${param.name.getText(srcFile)}の引数の型が指定されませんでした`);
             const metaParam = new MetaParam();
             metaParam.name = param.name.getText(srcFile);
             metaParam.type = param.type.getText(srcFile);
@@ -79,10 +81,10 @@ export function loadBizClass(): MetaClass[] {
           });
 
           // 戻り値
-          if (!member.type) throw new Error("メソッドタイプが取れない");
+          if (!member.type) throw new Error(`クラス:${fileName} メンバ:${member.name.getText(srcFile)} の戻り値型が取れない`);
           metaMethod.returnType = member.type.getText(srcFile);
 
-          if (!member.decorators) throw new Error("デコレータが取れない");
+          if (!member.decorators) return; //throw new Error("デコレータが取れない");
 
           member.decorators.forEach((dec) => {
             // console.log('dec ex', dec.expression);
@@ -90,7 +92,7 @@ export function loadBizClass(): MetaClass[] {
             // console.log('l1', l1);
             const decChildren = dec.expression.getChildren(srcFile);
 
-            if (decChildren[0].getText(srcFile) === "Rest") {
+            if (decChildren[0].getText(srcFile) === 'Rest') {
               // console.log(
               //   '2 kind ',
               //   ts.SyntaxKind[decChildren[2].kind],
@@ -111,12 +113,16 @@ export function loadBizClass(): MetaClass[] {
           });
 
           // メソッドを保存
-          metaClass.methods.push(metaMethod);
+          if (metaMethod) {
+            metaClass.methods.push(metaMethod);
+          }
         }
       });
 
       // クラス情報を保存
-      classList.push(metaClass);
+      if (metaClass) {
+        classList.push(metaClass);
+      }
     });
   }
   return classList;
