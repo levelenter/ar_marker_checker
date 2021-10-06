@@ -32,17 +32,17 @@
     <h2>VScodeのスニペット</h2>
     <p>Leaf開発ではVSCodeを利用します。設定→ユーザースニペットで以下のスニペットを登録します。</p>
     <div>
-      <pre>
+      <pre class="snippet">
 {
   "vue ts composition api": {
     "prefix": "vts3",
     "body": [
-      "&lg;template&gt;",
-      "  &lg;div&gt;",
+      "&lt;template&gt;",
+      "  &lt;div&gt;",
       "    {{ title }}",
-      "  &lg;/div&gt;",
-      "&lg;/template&gt;",
-      "&lg;script lang="ts"&gt;",
+      "  &lt;/div&gt;",
+      "&lt;/template&gt;",
+      "&lt;script lang="ts"&gt;",
       "import { defineComponent, ref } from '@vue/runtime-core';",
       "import { useRouter } from 'vue-router';",
       "export default defineComponent({",
@@ -63,7 +63,7 @@
       "    };",
       "  },",
       "});",
-      "&lg;/script&gt;"
+      "&lt;/script&gt;"
     ],
     "description": "vue template init"
   },
@@ -98,6 +98,40 @@
       "}"
     ]
   },
+  {
+    "dialog ts vue": {
+    "prefix": "dlg",
+    "body": [
+      "  &lt;template&gt;",
+      "  &lt;core-dialog :id='dialogId' :dialog-class='{ \"modal-xl\": true }' :title='title'&gt;",
+      "    &lt;div&gt;",
+      "      {{ dialogId }}",
+      "    &lt;/div&gt;",
+      "  &lt;/core-dialog&gt;",
+      "&lt;/template&gt;",
+      "&lt;script lang='ts'&gt;",
+      "import { defineComponent, onMounted, ref } from '@vue/runtime-core';",
+      "import { DialogHandler } from './DialogHandler';",
+      "import CoreDialog from '@/framework/components/dialog/CoreDialog.vue';",
+      "export default defineComponent({",
+      "  components: { CoreDialog },",
+      "  props: {},",
+      "  setup: () => {",
+      "    const dialogId = DialogHandler.tableDialogId;",
+      "",
+      "    onMounted(() => {",
+      "      DialogHandler.onOpenDialog(dialogId, (e: Event) => {",
+      "        console.log('init');",
+      "      });",
+      "    });",
+      "    return {",
+      "      dialogId,",
+      "    };",
+      "  },",
+      "});",
+      "&lt;/script&gt;"
+    ]
+  }
 }
 </pre
       >
@@ -150,3 +184,9 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+.snippet {
+  border: 0.1rem solid grey;
+  padding: 1rem;
+}
+</style>

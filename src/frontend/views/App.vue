@@ -4,7 +4,7 @@
 </template>
 <script lang='ts'>
 import { defineComponent } from "@vue/runtime-core";
-import DialogContainer from "./dialog/DialogContainer.vue";
+import DialogContainer from "@/frontend/components/dialog/DialogContainer.vue";
 export default defineComponent({
   components: { DialogContainer },
 });

@@ -1,13 +1,13 @@
-import fs from 'fs';
-import path from 'path';
-import ts from 'typescript';
+import fs from "fs";
+import path from "path";
+import ts from "typescript";
 
-import { MetaClass } from './MetaClass';
-import { MetaMethod } from './MetaMethod';
-import { MetaParam } from './MetaParam';
-import config from '../../../../config/generator.config';
+import { MetaClass } from "./MetaClass";
+import { MetaMethod } from "./MetaMethod";
+import { MetaParam } from "./MetaParam";
+import config from "../../../../config/generator.config";
 
-import { createIfNotExist } from './util';
+import { createIfNotExist } from "./util";
 
 const IF_PATH = config.rest.service.dir;
 
@@ -28,7 +28,7 @@ function isDirectory(fileName: string, dir: string) {
  */
 function loadFile(fileName: string, dir: string) {
   const fullPath = path.join(dir, fileName);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const fileContents = fs.readFileSync(fullPath, "utf8");
   const target = ts.ScriptTarget.Latest;
   const node = ts.createSourceFile(fileName, fileContents, target);
   return node;
@@ -60,7 +60,7 @@ export function loadBizClass(): MetaClass[] {
       metaClass.name = child.name.escapedText.toString();
       console.log(metaClass.name);
 
-      child.members.forEach((member) => {
+      child.members.forEach((member: any) => {
         const declaration = ts.isMethodDeclaration(member);
         // console.log('declaration', declaration);
         if (declaration && member.decorators) {
@@ -72,7 +72,7 @@ export function loadBizClass(): MetaClass[] {
           metaMethod.name = name.getText(srcFile);
 
           // パラメータを取り出す
-          metaMethod.params = member.parameters.map((param) => {
+          metaMethod.params = member.parameters.map(param => {
             if (!param.type) throw new Error(`クラス:${fileName} メンバ:${member.name.getText(srcFile)} 引数:${param.name.getText(srcFile)}の引数の型が指定されませんでした`);
             const metaParam = new MetaParam();
             metaParam.name = param.name.getText(srcFile);
@@ -86,13 +86,13 @@ export function loadBizClass(): MetaClass[] {
 
           if (!member.decorators) return; //throw new Error("デコレータが取れない");
 
-          member.decorators.forEach((dec) => {
+          member.decorators.forEach(dec => {
             // console.log('dec ex', dec.expression);
             const l1 = ts.SyntaxKind[dec.expression.kind];
             // console.log('l1', l1);
             const decChildren = dec.expression.getChildren(srcFile);
 
-            if (decChildren[0].getText(srcFile) === 'Rest') {
+            if (decChildren[0].getText(srcFile) === "Rest") {
               // console.log(
               //   '2 kind ',
               //   ts.SyntaxKind[decChildren[2].kind],

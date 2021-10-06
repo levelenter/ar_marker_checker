@@ -7,13 +7,17 @@
       </ul>
       <input v-model="id" type="text" />
     </div>
-    <div class="d-flex">
+    <div class="d-flex my-3">
       <button class="btn btn-primary me-2" @click="gotoTablePage">Goto Table Page</button><br />
-      <button class="btn btn-primary me-2" @click="gotoEditPage">Goto Edit Page</button>
+      <button class="btn btn-primary me-2" @click="gotoTableDialog">Goto Table Dialog</button><br />
       <button class="btn btn-primary me-2" @click="gotoPagingPage">Goto Edit Page Nation</button>
     </div>
 
-    <div class="d-flex">
+    <div class="d-flex my-3">
+      <button class="btn btn-primary me-2" @click="gotoEditPage">Goto Edit Page</button>
+    </div>
+
+    <div class="d-flex my-3">
       <button class="btn btn-primary me-2" @click="primaryDialog">基本ダイアログ</button>
       <button class="btn btn-danger me-2" @click="dangerDialog">エラーダイアログ</button><br />
       <button class="btn btn-info me-2" @click="infoDialog">情報ダイアログ</button>
@@ -24,8 +28,9 @@
 </template>
 <script lang="ts">
 import { MessageDialog } from "@/framework/frontend/MessageDialog";
+import { DialogHandler } from "@/frontend/components/dialog/DialogHandler";
 import { LeafQuiz } from "@/server/dto/generated/LeafQuiz";
-import { defineComponent, reactive, ref, Ref } from "@vue/runtime-core";
+import { defineComponent, ref, Ref } from "@vue/runtime-core";
 import { useRouter } from "vue-router";
 import { QuizService } from "../../biz/remote/QuizService";
 
@@ -35,6 +40,9 @@ export default defineComponent({
     const router = useRouter();
     const gotoTablePage = () => {
       router.push({ name: "TablePage" });
+    };
+    const gotoTableDialog = () => {
+      DialogHandler.showTableDialog();
     };
 
     const list: Ref<LeafQuiz[]> = ref([]);
@@ -87,6 +95,7 @@ export default defineComponent({
       modalAlertDialog,
       modalPromptDialog,
       gotoTablePage,
+      gotoTableDialog,
       gotoEditPage,
       gotoPagingPage,
     };

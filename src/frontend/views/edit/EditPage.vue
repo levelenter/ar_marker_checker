@@ -5,11 +5,11 @@
     <br />
     {{ messageRef }} -->
     <br />
-    <input type="text" v-model="list.quiz_title" />
+    <input v-model="list.quiz_title" type="text" />
     <br />
-    <input type="text" v-model="list.quiz_contents" />
+    <input v-model="list.quiz_contents" type="text" />
     <br />
-    <input type="text" v-model="list.quiz_auther" />
+    <input v-model="list.quiz_auther" type="text" />
     <br />
     <button @click="update">Update</button>
   </div>
@@ -61,8 +61,8 @@ export default defineComponent({
       list,
       title,
       messageRef,
-      update
+      update,
     };
-  }
+  },
 });
 </script>
