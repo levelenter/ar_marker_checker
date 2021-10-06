@@ -6,29 +6,25 @@
       <div>
         <a id="sign_in_button" class="btn btn-outline-secondary btn-sm" role="button" href="#" @click="openDialog">ログイン</a>
       </div>
-
-      <login-dialog />
     </nav>
   </header>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, ref } from "@vue/runtime-core";
-import LoginDialog, { showLoginDialog } from "./dialog/LoginDialog.vue";
-
+import { DialogHandler } from "@/frontend/components/dialog/DialogHandler";
 export default defineComponent({
-  components: { LoginDialog },
   props: {},
   setup: (prop, context) => {
     const props = reactive(prop);
     const openDialog = () => {
-      showLoginDialog();
+      DialogHandler.showSingInDialog();
     };
 
     return {
       props,
       context,
-      openDialog
+      openDialog,
     };
-  }
+  },
 });
 </script>

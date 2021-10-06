@@ -103,7 +103,7 @@
       >
     </div>
 
-    <core-dialog title="test">
+    <core-dialog id="first" title="test">
       <b>test</b>
 
       <template #footer>
@@ -123,7 +123,8 @@
 
 <script lang="ts">
 import { defineComponent } from "@vue/runtime-core";
-import CoreDialog, { showDialog } from "@/framework/components/dialog/CoreDialog.vue";
+import CoreDialog from "@/framework/components/dialog/CoreDialog.vue";
+import { DialogHandler } from "@/frontend/components/dialog/DialogHandler";
 import HeaderNavigation from "./HeaderNavigation.vue";
 
 export default defineComponent({
@@ -135,11 +136,11 @@ export default defineComponent({
   props: {},
   setup: () => {
     const open = () => {
-      showDialog();
+      DialogHandler.showDialog("first");
     };
 
     const open2 = () => {
-      showDialog("second");
+      DialogHandler.showDialog("second");
     };
 
     return {

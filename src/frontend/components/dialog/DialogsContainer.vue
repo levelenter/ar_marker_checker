@@ -1,11 +1,13 @@
 <template>
-  <login-dialog />
-  <notifications position="top right" />
+  <save-dialog />
 </template>
 <script lang='ts'>
 import { defineComponent } from "@vue/runtime-core";
-import LoginDialog from "./LoginDialog.vue";
+import SaveDialog from "./SaveDialog.vue";
+
 export default defineComponent({
-  components: { LoginDialog },
+  components: {
+    SaveDialog,
+  },
 });
 </script>

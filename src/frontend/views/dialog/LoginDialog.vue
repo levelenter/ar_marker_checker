@@ -1,6 +1,6 @@
 <template>
   <div>
-    <core-dialog id="loginDialog" title="ログイン">
+    <core-dialog :id="dialogId" title="ログイン">
       <div class="">
         <div class="d-flex my-2">
           <label class="w-25" for="mail">メールアドレス</label>
@@ -19,16 +19,13 @@
   </div>
 </template>
 <script lang="ts">
-import CoreDialog, { hideDialog, showDialog } from "@/framework/components/dialog/CoreDialog.vue";
+import CoreDialog from "@/framework/components/dialog/CoreDialog.vue";
 import { defineComponent, reactive } from "@vue/runtime-core";
 import { AuthService } from "../../biz/remote/AuthService";
 import { useRoute, useRouter } from "vue-router";
 import { Session } from "@/framework/frontend/Session";
 import { MessageDialog } from "@/framework/frontend/MessageDialog";
-
-// ダイアログを開く
-export const showLoginDialog = () => showDialog("loginDialog");
-
+import { DialogHandler } from "@/frontend/components/dialog/DialogHandler";
 export default defineComponent({
   components: { CoreDialog },
   props: {},
@@ -40,6 +37,7 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
 
+    const dialogId = DialogHandler.singInDialogId;
     const props = reactive(prop);
     const login = async () => {
       const service = new AuthService();
@@ -47,19 +45,18 @@ export default defineComponent({
 
       // ログインエラーならFrameworkでエラーが出る
       if (result.hasError) {
-        await MessageDialog.alertModal(result.errorDescription);
+        await MessageDialog.error(result.errorDescription);
         console.log(user);
-        /* const redirectPath = (route.params.redirect as string) || `/top_page`;
-        router.push(redirectPath); */
         return;
       }
       Session.set("USER", result.data);
-      hideDialog("loginDialog");
+      DialogHandler.hideDialog(dialogId);
       const redirectPath = (route.params.redirect as string) || `/top_page`;
       router.push(redirectPath);
     };
     return {
       login,
+      dialogId,
       props,
       user,
       context,
