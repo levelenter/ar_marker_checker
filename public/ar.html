@@ -17,15 +17,11 @@
       arjs="trackingMethod: best; sourceType: webcam; matrixCodeType: 3x3;detectionMode:mono_and_matrix; debugUIEnabled: false;"
       artoolkit=""
     >
-      <a-camera>
-        <a-cursor
-          cursor="fuse:true;far:1000;fuseTimeout:600;rayOrigin: mouse"
-          material="color:#404236"
-          animation__fusing="property: scale; startEvents: fusing; easing: easeInSine; dur: 300; from: 3 3 3; to: 1 1 1;"
-          animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInSine; dur: 300; to: 1 1 1;"
-        />
-      </a-camera>
-      <a-gltf-model id="model" src="" position="0 0 -7" animation-mixer="clip:*"></a-gltf-model>
+      <a-marker-camera gps-camera="minDistance: 20;" rotation-reader="">
+        <a-marker preset="hiro" emitevents="true" cursor="rayOrigin: mouse;fuse:false">
+          <a-gltf-model id="model" src="" position="0 0 0" animation-mixer="clip:*"></a-gltf-model>
+        </a-marker>
+      </a-marker-camera>
     </a-scene>
     <script type="text/javascript">
       function loadModel(fileName) {

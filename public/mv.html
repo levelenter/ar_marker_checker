@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@1.7.2/dist/model-viewer-umd.min.js"></script>
+    <style>
+      html,
+      body,
+      model-viewer {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <style>
+      #annotation {
+        background-color: #888888;
+        position: absolute;
+        transform: translate(10px, 10px);
+        border-radius: 10px;
+        padding: 3px;
+      }
+
+      /* This keeps child nodes hidden while the element loads */
+      :not(:defined) > * {
+        display: none;
+      }
+    </style>
+    <!-- Use it like any other HTML element -->
+    <model-viewer
+      id="mv"
+      alt="model viewer "
+      src="../uploaded/LE_char_002_girl_walk.glb"
+      ar
+      ar-modes="webxr scene-viewer quick-look"
+      environment-image=""
+      seamless-poster
+      shadow-intensity="1"
+      camera-controls
+    ></model-viewer>
+    <script type="text/javascript">
+      function loadModel(fileName) {
+        const modelPath = `../uploaded/${fileName}`;
+        const modelEl = document.getElementById("mv");
+        modelEl.setAttribute("src", modelPath);
+      }
+
+      window.addEventListener("load", () => {
+        console.log("loaded");
+        const params = new URLSearchParams(location.search);
+        const fileName = params.get("fileName");
+        loadModel(fileName);
+        console.log("in mv load", fileName);
+      });
+
+      window.addEventListener("message", e => {
+        const fileName = e.data;
+        loadModel(fileName);
+        parent.window.console.log("in mv preview", e.data);
+      });
+    </script>
+  </body>
+</html>
