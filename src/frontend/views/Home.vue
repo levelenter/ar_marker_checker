@@ -8,6 +8,11 @@
 
     <div>
       <div v-show="fileName" class="border border-secondary rounded p-3 my-3">
+        <div class="d-flex mt-3">
+          マーカーを使ったARです。QRコードを開いてスマートフォンなどで読み取り、画面上のHiroマーカーを読み取ってください。
+          うまく読み取れない場合は、スマートフォンのブラウザをリロードすると読み取れるようになることがあります。
+        </div>
+
         <div v-if="fileName" class="d-flex mt-3">
           <div><button class="btn btn-primary me-3" @click="openArQr">Marker ARのQRを開く</button></div>
           <div><button class="btn btn-primary" @click="openArOther">別ウインドウでMarker ARを開く</button></div>
@@ -15,13 +20,16 @@
 
         <div class="d-flex mt-3 w-100">
           <iframe v-show="fileName" id="ar" :src="arUrl" class="w-50" style="height: 30rem"> </iframe>
+
           <div class="d-flex justify-content-center align-items-center w-50 p-5" style="height: 30rem">
-            <img v-show="fileName" :src="'../public/hero_ar.png'" class="w-100" />
+            <img v-show="fileName" :src="'./public/hero_ar.png'" class="w-100" />
           </div>
         </div>
       </div>
 
       <div v-show="fileName" class="border border-secondary rounded p-3 my-3">
+        <div class="d-flex mt-3">VRモードです。矢印キーの上で前進、下で後退することができます。マウスドラッグでむきを変えることができます。</div>
+
         <div v-if="fileName" class="d-flex mt-3">
           <div><button class="btn btn-primary me-3" @click="openVrQr">VRのQRを開く</button></div>
           <div><button class="btn btn-primary" @click="openVrOther">別ウインドウでVRを開く</button></div>
@@ -31,6 +39,7 @@
       </div>
 
       <div v-show="fileName" class="border border-secondary rounded p-3 my-3">
+        <div class="d-flex mt-3">床面検知ARモードです。iOS用のmodelはglbではないため、iOSではAR表示ができません</div>
         <div v-if="fileName" class="d-flex mt-3">
           <div><button class="btn btn-primary me-3" @click="openMvQr">床面検知ARのQRを開く</button></div>
           <div><button class="btn btn-primary" @click="openMvOther">別ウインドウで床面検知ARを開く</button></div>
