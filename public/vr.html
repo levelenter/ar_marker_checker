@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
+
     <title>Aframe example</title>
   </head>
   <body>
@@ -17,7 +19,7 @@
           animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInSine; dur: 300; to: 1 1 1;"
         />
       </a-camera>
-      <a-gltf-model id="model" src="" position="0 0 -7"></a-gltf-model>
+      <a-gltf-model id="model" src="" position="0 0 -7" animation-mixer="clip:*"></a-gltf-model>
       <a-entity environment="preset:forest"></a-entity>
     </a-scene>
     <script type="text/javascript">

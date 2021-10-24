@@ -39,31 +39,26 @@ export default defineComponent({
 
     const onUpload = (fileInfo: FileInfo) => {
       fileName.value = fileInfo.name;
-
       const ar = document.getElementById("ar") as HTMLIFrameElement;
       ar.contentWindow?.postMessage(fileInfo.name, "*");
       const vr = document.getElementById("vr") as HTMLIFrameElement;
       vr.contentWindow?.postMessage(fileInfo.name, "*");
     };
 
-    const locationTo = (() => {
-      return location.protocol + "//" + location.host + location.pathname;
-    })();
+    const locationTo = () => location.protocol + "//" + location.host + location.pathname;
+    const getARPath = () => locationTo() + arPath + `?fileName=${fileName.value}`;
+    const getVRPath = () => locationTo() + vrPath + `?fileName=${fileName.value}`;
+
     const openArQr = () => {
-      DialogHandler.qrData = locationTo + arPath + `?fileName=${fileName.value}`;
+      DialogHandler.qrData = getARPath();
       DialogHandler.showQrDialog();
     };
     const openVrQr = () => {
-      DialogHandler.qrData = locationTo + vrPath + `?fileName=${fileName.value}`;
+      DialogHandler.qrData = getVRPath();
       DialogHandler.showQrDialog();
     };
-
-    const openArOther = () => {
-      window.open("../" + arPath + `?fileName=${fileName.value}`, "_blank");
-    };
-    const openVrOther = () => {
-      window.open("../" + vrPath + `?fileName=${fileName.value}`, "_blank");
-    };
+    const openArOther = () => window.open(getARPath(), "_blank");
+    const openVrOther = () => window.open(getVRPath(), "_blank");
 
     return { onUpload, fileName, arUrl, vrUrl, openArQr, openVrQr, openArOther, openVrOther };
   },
