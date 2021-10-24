@@ -46,7 +46,7 @@ export default defineComponent({
 
       const formData = new FormData();
       formData.append("userfile", files); // サーバーサイドの[user_assets_api.ts->uploadMultの名前と合わせる]
-      const url = `../v1/upload_file?file_name=${files.name}`;
+      const url = `./v1/upload_file?file_name=${files.name}`;
       const response = await axios.post(url, formData, { onUploadProgress: onUpload });
 
       progress.value = 0;
