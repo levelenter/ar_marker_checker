@@ -33,11 +33,7 @@ export class GeneratedBizBase {
     this._axios = value;
   }
 
-  protected async restCall<T extends Response<any>>(
-    method: "get" | "post" | "put" | "delete",
-    path: string,
-    sendData: any
-  ): Promise<T> {
+  protected async restCall<T extends Response<any>>(method: "get" | "post" | "put" | "delete", path: string, sendData: any): Promise<T> {
     let response;
 
     // トークンが取れないならログアウトしてリロード（ログインしなおして同じ画面へ移動してくる）
@@ -68,7 +64,7 @@ export class GeneratedBizBase {
       if (error.includes("403") === true) {
         Session.timeout();
       }
-      throw new Error(error);
+      throw new Error(`サーバー呼び出し時エラー:${error}`);
     }
 
     // StatusがOKなら、予期したエラー（入力チェック違反や準正常エラーなど）

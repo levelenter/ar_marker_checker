@@ -1,186 +1,71 @@
 <template>
   <div class="container">
-    <header-navigation />
-
-    <h1>Leaf Proejctへようこそ</h1>
-    <p>このプロジェクトはVuejs/Typescript/nodejs/Express をベースとしたLevelenter製フレームワークのテンプレートプロジェクトです。</p>
-
-    <h2>Leafフレームワークの機能</h2>
-    <p>Leafフレームワークは、以下のような機能を持ちます</p>
-    <ul>
-      <li>サーバーサイドにつなげるRESTAPIやDatabaseオブジェクトを自動生成するスクリプト</li>
-      <li>フロントエンドでサーバーのServiceメソッドを呼び出すリモートインターフェイスを自動生成。フロントエンドからサービスを型付で呼び出すかのように参照可能</li>
-      <li>ダイアログやトースト通知、ページネーション、テーブルなどのUIコンポーネント</li>
-      <li>ログインおよびルーティングのテンプレート</li>
-      <li>サーバーサイドのエラー処理機構</li>
-      <li>サーバーサイドの１メソッド１トランザクションの機構</li>
-      <li>自動生成されたデータアクセスオブジェクトで基本的なCRUDを実現</li>
-      <li>bootstrap 5 ベース</li>
-    </ul>
-
-    <h2>Leafフレームワークのスタートポイント</h2>
-    <p>package.jsonのscriptで自動生成やサーバーの起動停止を実行します</p>
-    <ul>
-      <li>`npm run db` docker-composeを使って開発環境DBを立ち上げます。初期化スクリプトは[/database/init]配下にあります</li>
-      <li>`npm run dev:web`開発用のフロントエンドビルドを行います。watchするため開発中は起動し続けてください。</li>
-      <li>`npm run dev:sv`開発用のサーバーサイドビルドを行います。watchはできていない（TODO）ため、サーバーサイドのスクリプトを変えたら再起動してください</li>
-      <li>
-        `npm run
-        entity`データベースアクセス用のDAOとentityクラスを自動生成します。[/database/init/create_table.sql]ファイルと[/database/er/db.er.a5sql]ファイルをベースに自動生成します。
-      </li>
-    </ul>
-    <h2>VScodeのスニペット</h2>
-    <p>Leaf開発ではVSCodeを利用します。設定→ユーザースニペットで以下のスニペットを登録します。</p>
-    <div>
-      <pre class="snippet">
-{
-  "vue ts composition api": {
-    "prefix": "vts3",
-    "body": [
-      "&lt;template&gt;",
-      "  &lt;div&gt;",
-      "    {{ title }}",
-      "  &lt;/div&gt;",
-      "&lt;/template&gt;",
-      "&lt;script lang="ts"&gt;",
-      "import { defineComponent, ref } from '@vue/runtime-core';",
-      "import { useRouter } from 'vue-router';",
-      "export default defineComponent({",
-      "  components: {},",
-      "  props: {},",
-      "  setup: () =&gt; {",
-      "    /**",
-      "     * 動的ラベル",
-      "     */",
-      "    const title = ref('${TM_FILENAME_BASE:default}')",
-      "    /**",
-      "     * プロパティ",
-      "     */",
-      "    const router = useRouter();",
-      "",
-      "    return {",
-      "      title,",
-      "    };",
-      "  },",
-      "});",
-      "&lt;/script&gt;"
-    ],
-    "description": "vue template init"
-  },
-  "dao ts class": {
-    "prefix": "dts",
-    "body": [
-      "import { ${TM_FILENAME_BASE:default}Gen } from './generated/${TM_FILENAME_BASE:default}Gen';",
-      "import { ResultSetHeader } from 'mysql2';",
-      "",
-      "export class $TM_FILENAME_BASE extends ${TM_FILENAME_BASE:default}Gen {",
-      "}"
-    ]
-  },
-  "biz ts class3": {
-    "prefix": "bts3",
-    "body": [
-      "import config from 'config';",
-      "import { PoolConnection } from 'mysql2/promise';",
-      "import { Transactional } from '../../framework/biz/@Transactional';",
-      "import { Rest } from '../../framework/biz/@Rest';",
-      "import { Response } from '../../framework/biz/Response';",
-      "",
-      "export class ${TM_FILENAME_BASE:default} {",
-      "  connection!: PoolConnection;",
-      "",
-      "  @Rest('/v1/${TM_FILENAME_BASE:default}/${1:method}', 'post')",
-      "  @Transactional('connection')",
-      "  async ${1:method}(): Promise&lt;Response&lt;any&gt;&gt; {",
-      "    const result: any = {};",
-      "    return new Response&lt;any&gt;(result);",
-      "  }",
-      "}"
-    ]
-  },
-  {
-    "dialog ts vue": {
-    "prefix": "dlg",
-    "body": [
-      "  &lt;template&gt;",
-      "  &lt;core-dialog :id='dialogId' :dialog-class='{ \"modal-xl\": true }' :title='title'&gt;",
-      "    &lt;div&gt;",
-      "      {{ dialogId }}",
-      "    &lt;/div&gt;",
-      "  &lt;/core-dialog&gt;",
-      "&lt;/template&gt;",
-      "&lt;script lang='ts'&gt;",
-      "import { defineComponent, onMounted, ref } from '@vue/runtime-core';",
-      "import { DialogHandler } from './DialogHandler';",
-      "import CoreDialog from '@/framework/components/dialog/CoreDialog.vue';",
-      "export default defineComponent({",
-      "  components: { CoreDialog },",
-      "  props: {},",
-      "  setup: () => {",
-      "    const dialogId = DialogHandler.tableDialogId;",
-      "",
-      "    onMounted(() => {",
-      "      DialogHandler.onOpenDialog(dialogId, (e: Event) => {",
-      "        console.log('init');",
-      "      });",
-      "    });",
-      "    return {",
-      "      dialogId,",
-      "    };",
-      "  },",
-      "});",
-      "&lt;/script&gt;"
-    ]
-  }
-}
-</pre
-      >
+    <file-upload-section @on-uploaded="onUpload" />
+    <div v-if="fileName">
+      <div class="me-3">プレビュー</div>
+      <div>{{ fileName }}</div>
     </div>
-
-    <core-dialog id="first" title="test">
-      <b>test</b>
-
-      <template #footer>
-        <b>foot</b>
-      </template>
-    </core-dialog>
-
-    <core-dialog id="second" title="test2">
-      <b>test2</b>
-
-      <template #footer>
-        <b>foot2</b>
-      </template>
-    </core-dialog>
+    <div v-if="fileName" class="d-flex">
+      <div><button class="btn btn-primary" @click="openArQr">ARのQRを開く</button></div>
+      <div><button class="btn btn-primary" @click="openVrQr">VRのQRを開く</button></div>
+      <div><button class="btn btn-primary" @click="openArOther">別ウインドウでARを開く</button></div>
+      <div><button class="btn btn-primary" @click="openVrOther">別ウインドウでVRを開く</button></div>
+    </div>
+    <div class="d-flex">
+      <iframe v-show="fileName" id="ar" :src="arUrl" style="height: 30rem; width: 60rem"> </iframe>
+      <iframe v-show="fileName" id="vr" :src="vrUrl" style="height: 30rem; width: 60rem"> </iframe>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@vue/runtime-core";
-import CoreDialog from "@/framework/components/dialog/CoreDialog.vue";
-import { DialogHandler } from "@/frontend/components/dialog/DialogHandler";
-import HeaderNavigation from "./HeaderNavigation.vue";
+import { FileInfo } from "@/server/dto/FileInfo";
+import { defineComponent, ref } from "@vue/runtime-core";
+import { DialogHandler } from "../components/dialog/DialogHandler";
+import FileUploadSection from "./uploader/FileUploadSection.vue";
 
 export default defineComponent({
   components: {
-    HeaderNavigation,
-    CoreDialog,
+    FileUploadSection,
     // Test
   },
   props: {},
   setup: () => {
-    const open = () => {
-      DialogHandler.showDialog("first");
+    const arPath = "public/ar.html";
+    const vrPath = "public/vr.html";
+    const fileName = ref("");
+    const arUrl = ref(arPath);
+    const vrUrl = ref(vrPath);
+
+    const onUpload = (fileInfo: FileInfo) => {
+      fileName.value = fileInfo.name;
+
+      const ar = document.getElementById("ar") as HTMLIFrameElement;
+      ar.contentWindow?.postMessage(fileInfo.name, "*");
+      const vr = document.getElementById("vr") as HTMLIFrameElement;
+      vr.contentWindow?.postMessage(fileInfo.name, "*");
     };
 
-    const open2 = () => {
-      DialogHandler.showDialog("second");
+    const locationTo = (() => {
+      return location.protocol + "//" + location.host + location.pathname;
+    })();
+    const openArQr = () => {
+      DialogHandler.qrData = locationTo + arPath + `?fileName=${fileName.value}`;
+      DialogHandler.showQrDialog();
+    };
+    const openVrQr = () => {
+      DialogHandler.qrData = locationTo + vrPath + `?fileName=${fileName.value}`;
+      DialogHandler.showQrDialog();
     };
 
-    return {
-      open,
-      open2,
+    const openArOther = () => {
+      window.open("../" + arPath + `?fileName=${fileName.value}`, "_blank");
     };
+    const openVrOther = () => {
+      window.open("../" + vrPath + `?fileName=${fileName.value}`, "_blank");
+    };
+
+    return { onUpload, fileName, arUrl, vrUrl, openArQr, openVrQr, openArOther, openVrOther };
   },
 });
 </script>

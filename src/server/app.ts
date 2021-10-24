@@ -5,6 +5,7 @@ import history from "connect-history-api-fallback";
 
 // routers
 import { authRest } from "./web/authRest";
+import { fileRest } from "./web/fileRest";
 
 // Expressアプリケーションの開始
 export const app = express();
@@ -15,10 +16,11 @@ export const app = express();
 app.use(express.json({ limit: "50mb" }) as any);
 app.use(express.urlencoded({ limit: "50mb", extended: true }) as any);
 
-// フォールバックの前なら普通の遷移可能
-// app.get("/test", (req, res) => {
-//   res.json({ test: "test" });
-// });
+app.use("/uploaded", express.static(path.resolve("uploaded")));
+app.use("/public", express.static(path.resolve("public")));
+
+// フォールバック前にファイルアップロードを処理
+app.use("/v1", fileRest);
 
 // Vuejs用index.html以外のアクセスをindex.htmlへフォールバック/APIへのアクセスは通したいのでtext/htmlのみを対象とする
 const vueFallback = history({

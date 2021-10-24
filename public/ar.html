@@ -1,0 +1,51 @@
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
+    <script type="text/javascript" src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+
+    <title>Aframe example</title>
+  </head>
+  <body>
+    <a-scene
+      renderer="colorManagement: true"
+      vr-mode-ui="enabled: false"
+      arjs="trackingMethod: best; sourceType: webcam; matrixCodeType: 3x3;detectionMode:mono_and_matrix; debugUIEnabled: false;"
+      artoolkit=""
+    >
+      <a-camera>
+        <a-cursor
+          cursor="fuse:true;far:1000;fuseTimeout:600;rayOrigin: mouse"
+          material="color:#404236"
+          animation__fusing="property: scale; startEvents: fusing; easing: easeInSine; dur: 300; from: 3 3 3; to: 1 1 1;"
+          animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInSine; dur: 300; to: 1 1 1;"
+        />
+      </a-camera>
+      <a-gltf-model id="model" src="" position="0 0 -7"></a-gltf-model>
+    </a-scene>
+    <script type="text/javascript">
+      function loadModel(fileName) {
+        const modelPath = `../uploaded/${fileName}`;
+        const modelEl = document.getElementById("model");
+        modelEl.setAttribute("src", modelPath);
+      }
+
+      window.addEventListener("load", () => {
+        console.log("loaded");
+        const params = new URLSearchParams(location.search);
+        const fileName = params.get("fileName");
+        loadModel(fileName);
+        console.log("in ar load", fileName);
+      });
+
+      window.addEventListener("message", e => {
+        const fileName = e.data;
+        loadModel(fileName);
+        parent.window.console.log("in ar preview", e.data);
+      });
+    </script>
+  </body>
+</html>

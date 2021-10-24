@@ -40,19 +40,24 @@ export default defineComponent({
     const dialogId = DialogHandler.singInDialogId;
     const props = reactive(prop);
     const login = async () => {
-      const service = new AuthService();
-      const result = await service.login(user.mail, user.password);
+      try {
+        const service = new AuthService();
 
-      // ログインエラーならFrameworkでエラーが出る
-      if (result.hasError) {
-        await MessageDialog.error(result.errorDescription);
-        console.log(user);
-        return;
+        const result = await service.login(user.mail, user.password);
+
+        // ログインエラーならFrameworkでエラーが出る
+        if (result.hasError) {
+          await MessageDialog.error(result.errorDescription);
+          console.log(user);
+          return;
+        }
+        Session.set("USER", result.data);
+        DialogHandler.hideDialog(dialogId);
+        const redirectPath = (route.params.redirect as string) || `/top_page`;
+        router.push(redirectPath);
+      } catch (e) {
+        await MessageDialog.error(e);
       }
-      Session.set("USER", result.data);
-      DialogHandler.hideDialog(dialogId);
-      const redirectPath = (route.params.redirect as string) || `/top_page`;
-      router.push(redirectPath);
     };
     return {
       login,

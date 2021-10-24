@@ -55,13 +55,11 @@ const server = app.listen(config.get("server_port"), () => {
     throw new Error(`${addr}が取れませんでした`);
   }
   const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
-  const logString = `サーバー起動成功version.${
-    packageJson.version
-  } ${dayjs().format(DTW_FORMAT_JA)}PORT: ${bind}をリッスンしています。`;
+  const logString = `サーバー起動成功version.${packageJson.version} ${dayjs().format(DTW_FORMAT_JA)}PORT: ${bind}をリッスンしています。`;
 
   // ログとコンソールに書く
   logger.info(logString);
 
   // DB接続確認
-  firstConnection().then();
+  // firstConnection().then();
 });

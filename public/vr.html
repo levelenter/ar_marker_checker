@@ -1,0 +1,45 @@
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.2.0/dist/aframe-environment-component.min.js"></script>
+    <title>Aframe example</title>
+  </head>
+  <body>
+    <a-scene>
+      <a-camera>
+        <a-cursor
+          cursor="fuse:true;far:1000;fuseTimeout:600;rayOrigin: mouse"
+          material="color:#404236"
+          animation__fusing="property: scale; startEvents: fusing; easing: easeInSine; dur: 300; from: 3 3 3; to: 1 1 1;"
+          animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInSine; dur: 300; to: 1 1 1;"
+        />
+      </a-camera>
+      <a-gltf-model id="model" src="" position="0 0 -7"></a-gltf-model>
+      <a-entity environment="preset:forest"></a-entity>
+    </a-scene>
+    <script type="text/javascript">
+      function loadModel(fileName) {
+        const modelPath = `../uploaded/${fileName}`;
+        const modelEl = document.getElementById("model");
+        modelEl.setAttribute("src", modelPath);
+      }
+
+      window.addEventListener("load", () => {
+        console.log("loaded");
+        const params = new URLSearchParams(location.search);
+        const fileName = params.get("fileName");
+        loadModel(fileName);
+        console.log("in vr load", fileName);
+      });
+
+      window.addEventListener("message", e => {
+        const fileName = e.data;
+        loadModel(fileName);
+        parent.window.console.log("in vr preview", e.data);
+      });
+    </script>
+  </body>
+</html>
