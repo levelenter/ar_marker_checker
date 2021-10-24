@@ -1,0 +1,8 @@
+
+> model_uploader@0.1.0 prod:cp
+> tsc  --project tsconfig.sv.json
+
+src/server/draco_dependency/draco_encoder.js(9,51376): error TS8011: Type arguments can only be used in TypeScript files.
+src/server/draco_dependency/draco_encoder.js(9,51385): error TS1005: ')' expected.
+src/server/draco_dependency/draco_encoder.js(9,51417): error TS1005: ';' expected.
+src/server/draco_dependency/draco_encoder.js(9,51418): error TS1109: Expression expected.

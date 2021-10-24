@@ -30,7 +30,7 @@
     "entity": "node_modules/.bin/ts-node --project tsconfig.sv.json src/framework/generater/entity/index.ts",
     "kill": "ts-node src/framework/command/kill.ts",
     "prod": "run-s prod:web prod:cp prod:start ",
-    "prod:cp": "node_modules/.bin/tsc --project tsconfig.sv.json ",
+    "prod:cp": "tsc  --project tsconfig.sv.json  ",
     "prod:del": "node_modules/pm2/bin/pm2 del 0",
     "prod:start": "node_modules/pm2/bin/pm2 start config/pm2.config.json --env production --log-date-format 'DD-MM HH:mm:ss.SSS'",
     "prod:sv": "run-s prod:cp prod:del prod:start",
