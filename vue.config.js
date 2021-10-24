@@ -2,7 +2,7 @@
 const path = require("path");
 
 module.exports = {
-  publicPath: "/model_uploader",
+  publicPath: process.env.NODE_ENV === "production" ? "/model_uploader" : "/",
   configureWebpack: {
     devtool: "source-map",
     resolve: {
