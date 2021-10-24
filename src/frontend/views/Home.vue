@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <file-upload-section @on-uploaded="onUpload" />
-    <div v-if="fileName">
-      <div class="me-3">プレビュー</div>
+    <div v-if="fileName" class="d-flex">
+      <div class="me-3">ファイル名</div>
       <div>{{ fileName }}</div>
     </div>
 
@@ -10,7 +10,7 @@
       <div v-show="fileName" class="border border-secondary rounded p-3 my-3">
         <div class="d-flex mt-3">
           マーカーを使ったARです。QRコードを開いてスマートフォンなどで読み取り、画面上のHiroマーカーを読み取ってください。
-          うまく読み取れない場合は、スマートフォンのブラウザをリロードすると読み取れるようになることがあります。
+          うまく読み取れない場合は、スマートフォンのブラウザをリロードすると読み取れるようになることがあります。 GPS ARでのモデルの見え方はこのマーカーARが最も近くなります。
         </div>
 
         <div v-if="fileName" class="d-flex mt-3">

@@ -19,8 +19,9 @@
           animation__mouseleave="property: scale; startEvents: mouseleave; easing: easeInSine; dur: 300; to: 1 1 1;"
         />
       </a-camera>
-      <a-gltf-model id="model" src="" position="0 0 -7" animation-mixer="clip:*"></a-gltf-model>
-      <a-entity environment="preset:forest"></a-entity>
+      <a-gltf-model id="model" src="" position="0 -2 -7" animation-mixer="clip:*"></a-gltf-model>
+      <!-- <a-entity environment="preset:forest"></a-entity> -->
+      <a-sky src="room.jpg" color="#FFFFFF"></a-sky>
     </a-scene>
     <script type="text/javascript">
       function loadModel(fileName) {
