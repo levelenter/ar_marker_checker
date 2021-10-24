@@ -2,6 +2,7 @@
 const path = require("path");
 
 module.exports = {
+  publicPath: "/model_uploader",
   configureWebpack: {
     devtool: "source-map",
     resolve: {
