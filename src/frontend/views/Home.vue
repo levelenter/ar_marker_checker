@@ -7,29 +7,36 @@
     </div>
 
     <div>
-      <div v-if="fileName" class="d-flex mt-3">
-        <div><button class="btn btn-primary me-3" @click="openArQr">ARのQRを開く</button></div>
-        <div><button class="btn btn-primary" @click="openArOther">別ウインドウでARを開く</button></div>
-      </div>
+      <div v-show="fileName" class="border border-secondary rounded p-3 my-3">
+        <div v-if="fileName" class="d-flex mt-3">
+          <div><button class="btn btn-primary me-3" @click="openArQr">Marker ARのQRを開く</button></div>
+          <div><button class="btn btn-primary" @click="openArOther">別ウインドウでMarker ARを開く</button></div>
+        </div>
 
-      <div style="height: 30rem; width: 60rem" class="d-flex mt-3">
-        <iframe v-show="fileName" id="ar" :src="arUrl" style="height: 30rem; width: 30rem"> </iframe>
-        <div class="d-flex justify-content-center align-items-center" style="height: 30rem; width: 30rem">
-          <img v-show="fileName" :src="'../public/hero_ar.png'" style="height: 20rem; width: 20rem" />
+        <div class="d-flex mt-3 w-100">
+          <iframe v-show="fileName" id="ar" :src="arUrl" class="w-50" style="height: 30rem"> </iframe>
+          <div class="d-flex justify-content-center align-items-center w-50 p-5" style="height: 30rem">
+            <img v-show="fileName" :src="'../public/hero_ar.png'" class="w-100" />
+          </div>
         </div>
       </div>
 
-      <div v-if="fileName" class="d-flex mt-3">
-        <div><button class="btn btn-primary me-3" @click="openVrQr">VRのQRを開く</button></div>
-        <div><button class="btn btn-primary" @click="openVrOther">別ウインドウでVRを開く</button></div>
+      <div v-show="fileName" class="border border-secondary rounded p-3 my-3">
+        <div v-if="fileName" class="d-flex mt-3">
+          <div><button class="btn btn-primary me-3" @click="openVrQr">VRのQRを開く</button></div>
+          <div><button class="btn btn-primary" @click="openVrOther">別ウインドウでVRを開く</button></div>
+        </div>
+
+        <iframe v-show="fileName" id="vr" class="mt-3 w-100" style="height: 30rem" :src="vrUrl"> </iframe>
       </div>
 
-      <iframe v-show="fileName" id="vr" class="mt-3" :src="vrUrl" style="height: 30rem; width: 60rem"> </iframe>
-      <div v-if="fileName" class="d-flex mt-3">
-        <div><button class="btn btn-primary me-3" @click="openMvQr">床面検知ARのQRを開く</button></div>
-        <div><button class="btn btn-primary" @click="openMvOther">別ウインドウで床面検知ARを開く</button></div>
+      <div v-show="fileName" class="border border-secondary rounded p-3 my-3">
+        <div v-if="fileName" class="d-flex mt-3">
+          <div><button class="btn btn-primary me-3" @click="openMvQr">床面検知ARのQRを開く</button></div>
+          <div><button class="btn btn-primary" @click="openMvOther">別ウインドウで床面検知ARを開く</button></div>
+        </div>
+        <iframe v-show="fileName" id="mv" class="border border-secondary mt-3 w-100" style="height: 30rem" :src="mvUrl"> </iframe>
       </div>
-      <iframe v-show="fileName" id="mv" class="border border-secondary mt-3" :src="mvUrl" style="height: 30rem; width: 60rem"> </iframe>
     </div>
   </div>
 </template>
