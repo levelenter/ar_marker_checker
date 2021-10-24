@@ -1,9 +1,9 @@
 {
-  "name": "docker-aframe",
+  "name": "model_upload",
   "script": "./build/build_server/src/framework/index.js",
   "log_date_format": "YYYY-MM-DD HH:mm Z",
   "env": {
     "NODE_ENV": "production",
-    "name": "docker-aframe"
+    "name": "model_upload"
   }
 }
