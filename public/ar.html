@@ -1,4 +1,4 @@
-<html lang="ja">
+<html lang="ja" style="height:100%">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -10,14 +10,14 @@
 
     <title>Aframe example</title>
   </head>
-  <body>
+  <body style="height:100%">
     <a-scene
       renderer="colorManagement: true"
       vr-mode-ui="enabled: false"
       arjs="trackingMethod: best; sourceType: webcam; matrixCodeType: 3x3;detectionMode:mono_and_matrix; debugUIEnabled: false;"
       artoolkit=""
     >
-      <a-marker-camera gps-camera="minDistance: 20;" rotation-reader="">
+      <a-marker-camera rotation-reader="">
         <a-marker preset="hiro" emitevents="true" cursor="rayOrigin: mouse;fuse:false">
           <a-gltf-model id="model" src="" position="0 0 0" animation-mixer="clip:*"></a-gltf-model>
         </a-marker>
