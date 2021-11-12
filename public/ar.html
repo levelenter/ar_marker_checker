@@ -32,18 +32,23 @@
         markerEl.setAttribute("url", filePath);
       }
 
-      window.addEventListener("load", () => {
-        console.log("loaded");
+      window.addEventListener("DOMContentLoaded", () => {
+        console.log("DOMContentLoaded");
         const params = new URLSearchParams(location.search);
         const fileName = params.get("fileName");
+
         loadPatt(fileName);
         console.log("in ar load", fileName);
       });
 
       window.addEventListener("message", e => {
         const fileName = e.data;
-        parent.window.console.log("in ar preview", e.data, fileName);
-        loadPatt(fileName);
+        if (typeof fileName !== "string") {
+          parent.window.console.log("not string", typeof fileName);
+        } else {
+          parent.window.console.log("in ar preview", e.data, fileName);
+          loadPatt(fileName);
+        }
       });
     </script>
   </body>
