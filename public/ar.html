@@ -27,7 +27,8 @@
     </a-scene>
     <script type="text/javascript">
       function loadPatt(fileName) {
-        const filePath = `./uploaded/${fileName}`;
+        const dir = "ar_marker_checker";
+        const filePath = `/${dir}/uploaded/${fileName}`;
         const markerEl = document.getElementById("marker");
         markerEl.setAttribute("url", filePath);
       }
