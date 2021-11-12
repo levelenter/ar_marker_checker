@@ -34,7 +34,7 @@ app.use(generatedRest);
 /**
  * エラーレスポンス（優先順位を最後にするため、他のルーティングより後にすること）
  */
-app.use((err: any, req: express.Request, res: express.Response) => {
+app.use((err: any, req: express.Request, res: express.Response, next: any) => {
   console.error(dayjs().format(DT_FORMAT), err.stack);
   logger.error(err.stack);
   logger.error(req.headers);

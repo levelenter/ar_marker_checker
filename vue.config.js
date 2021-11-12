@@ -2,7 +2,7 @@
 const path = require("path");
 
 module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/model_uploader" : "/",
+  publicPath: process.env.NODE_ENV === "production" ? "/ar_marker_checker" : "/",
   configureWebpack: {
     devtool: "source-map",
     resolve: {

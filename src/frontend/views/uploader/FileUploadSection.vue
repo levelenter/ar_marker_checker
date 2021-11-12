@@ -6,7 +6,7 @@
       <input id="fileinput" style="display: none" type="hidden" name="MAX_FILE_SIZE" value="50000000" />
 
       <!-- input 要素の name 属性の値が、$_FILES 配列のキーになります -->
-      <div>ファイル</div>
+      <div>{{ title }}</div>
       <input id="userfile" name="userfile" class="form-control" type="file" :accept="acceptExtentions" @change="upload" />
       <p>対応する拡張子：{{ acceptExtentions }}</p>
       <!-- プログレスバー -->
@@ -21,14 +21,16 @@ import { FileInfo } from "@/server/dto/FileInfo";
 import { MessageDialog } from "@/framework/frontend/MessageDialog";
 export default defineComponent({
   components: {},
-  props: {},
+  props: {
+    acceptExtentions: { type: String, default: "" },
+    title: { type: String, default: "ファイル" },
+  },
   emits: ["on-uploaded"],
   setup: (_, context) => {
     /**
      * プロパティ
      */
     const progress = ref(0);
-    const acceptExtentions = "glb";
 
     /**
      * プログレスバーの進行
@@ -58,7 +60,6 @@ export default defineComponent({
     return {
       progress,
       upload,
-      acceptExtentions,
     };
   },
 });
