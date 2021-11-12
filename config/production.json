@@ -1,5 +1,5 @@
 {
-  "server_port": 3002,
+  "server_port": 3007,
   "secret": "le_framework_secret!!",
   "db": {
     "host": "localhost",
