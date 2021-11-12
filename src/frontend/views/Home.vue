@@ -70,7 +70,7 @@ export default defineComponent({
     };
 
     const onUploadImage = (fileInfo: FileInfo) => {
-      imgFileName.value = "../uploaded/" + fileInfo.name;
+      imgFileName.value = "./uploaded/" + fileInfo.name;
       console.log("info");
     };
 
